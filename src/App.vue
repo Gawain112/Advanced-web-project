@@ -1,6 +1,8 @@
 <template>
   <router-link to="/">Home</router-link> |
   <router-link to="/about">About</router-link>
+  <router-link to="/analyse">Analyse</router-link>
+  <router-link to="/feature">Feature</router-link>
   <router-view />
 </template>
 
