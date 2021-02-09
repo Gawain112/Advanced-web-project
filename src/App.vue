@@ -9,6 +9,9 @@
     <el-button type="primary">el-button</el-button>
   </div>
   <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <router-view>
+    <router-link to="/login">Login</router-link>
+  </router-view>
 </template>
 
 <script>
