@@ -1,7 +1,7 @@
 <template>
   <el-form
     label-position="left"
-    label-width="5rem"
+    label-width="6rem"
     :model="loginModel"
     :size="size"
     ref="loginModel"
@@ -43,7 +43,10 @@
       ></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitLogin('loginModel')"
+      <el-button
+        style="margin-left: -4rem;"
+        type="primary"
+        @click="submitLogin('loginModel')"
         >Login</el-button
       >
     </el-form-item>
