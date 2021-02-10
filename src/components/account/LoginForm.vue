@@ -55,6 +55,7 @@
 
 <script>
 import { ref } from "vue";
+import hashPassword from "@/composable/passwordHashUtil";
 
 export default {
   name: "LoginForm",
@@ -75,8 +76,23 @@ export default {
     submitLogin(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          console.log(this.loginModel.username);
-          console.log(this.loginModel.password);
+          let { hashedPassword, hash, comparePass } = hashPassword();
+
+          let plainTextPass = this.loginModel.password;
+          hashedPassword = hash(plainTextPass);
+
+          console.log(hashedPassword);
+          console.log(plainTextPass);
+
+          comparePass(plainTextPass).then(
+            function(res) {
+              console.log(res);
+            },
+            function(err) {
+              console.log("incorrect password formatting");
+              console.log(err);
+            }
+          );
         } else {
           return false;
         }
