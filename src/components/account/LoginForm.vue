@@ -50,14 +50,15 @@
         >Login</el-button
       >
     </el-form-item>
-    <el-alert v-if="display" title="error alert" type="error" effect="dark">
+    <el-alert v-if="errorMsg" title="Error" type="error" effect="dark">
+      {{ errorMsg }}
     </el-alert>
   </el-form>
 </template>
 
 <script>
 import { ref } from "vue";
-import comparePassword from "@/composable/passwordCompareUtil";
+import { firebaseAuthenticationService } from "@/firebase/database";
 
 export default {
   name: "LoginForm",
@@ -74,7 +75,7 @@ export default {
     return {
       loginModel: ref({ username: "", password: "" }),
       loginAttempts: 0,
-      display: ref(false)
+      errorMsg: ref("")
     };
   },
   methods: {
@@ -90,63 +91,27 @@ export default {
     attemptLogin() {
       let context = this;
 
-      let { comparePass } = comparePassword();
-
-      let plainTextPass = this.loginModel.password;
+      let password = this.loginModel.password;
       let username = this.loginModel.username;
 
-      let user = this.getUserWithUsername(username);
-
-      comparePass(plainTextPass, user.password).then(
-        function(res) {
-          if (res) {
-            //correct password
-            context.$emit("loggedIn", user);
-          } else {
-            //wrong password
+      firebaseAuthenticationService
+        .signInWithEmailAndPassword(username, password)
+        .then(
+          () => {
+            context.$emit("loggedIn", username);
+          },
+          error => {
             if (context.loginAttempts > 4) {
               //user failed to log in 5 times
               context.$router.push("/about");
             }
             context.loginAttempts++;
-            context.showIncorrectPasswordNotification();
+            context.updateErrorMessage(error.message);
           }
-        },
-        function(err) {
-          console.log("incorrect password formatting");
-          console.log(err);
-        }
-      );
+        );
     },
-    getUserWithUsername(username) {
-      //to be updated with actual db functionality
-      const users = [
-        {
-          username: "aLbUs_PeRcIvAl_WuLfRiC_bRiAn_DuMbLeDoOr",
-          password:
-            "$2y$05$bbvyM9MUYIpizKCw4BzZRu9qmdjq.IDFRxzifqeTMVihgNkYiQ892" //password: Password
-        },
-        {
-          username: "harry_potter",
-          password:
-            "$2y$05$TWsLJh.cSZog/xKrIX9UPuM9Y9izcCDs0CjnYTxdLz52SdkRbk..u" //password: chosen_1
-        },
-        {
-          username: "hagrid",
-          password:
-            "$2y$05$BHk1aIYXs/ViSU6imwM1Ouena9gG2f2ILcYIX7InrhJ1.aAf4HrtS" //password: griffin
-        },
-        {
-          username: "snape",
-          password:
-            "$2y$05$JuPekDr/PMAHl.2/r6o9gef.j60pLaf.qmo6Sb131vyEd4OZZMv86" //password: SIMP
-        }
-      ];
-
-      return users.find(user => user.username == username);
-    },
-    showIncorrectPasswordNotification(){
-      this.display = true;
+    updateErrorMessage(withMessage) {
+      this.errorMsg = withMessage;
     }
   }
 };

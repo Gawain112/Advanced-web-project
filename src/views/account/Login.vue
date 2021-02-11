@@ -24,7 +24,7 @@ export default {
       this.$emit("loggedIn", user);
       this.$notify({
         title: "Success",
-        message: "Hello, " + user.username + ". You are now logged in.",
+        message: "Hello, " + user + ". You are now logged in.",
         type: "success",
         duration: 3000
       });
