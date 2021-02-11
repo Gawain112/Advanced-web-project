@@ -50,6 +50,8 @@
         >Login</el-button
       >
     </el-form-item>
+    <el-alert v-if="display" title="error alert" type="error" effect="dark">
+    </el-alert>
   </el-form>
 </template>
 
@@ -70,7 +72,9 @@ export default {
   emits: ["loggedIn"],
   data() {
     return {
-      loginModel: ref({ username: "", password: "" })
+      loginModel: ref({ username: "", password: "" }),
+      loginAttempts: 0,
+      display: ref(false)
     };
   },
   methods: {
@@ -100,7 +104,12 @@ export default {
             context.$emit("loggedIn", user);
           } else {
             //wrong password
-            console.log("incorrect password!");
+            if (context.loginAttempts > 4) {
+              //user failed to log in 5 times
+              context.$router.push("/about");
+            }
+            context.loginAttempts++;
+            context.showIncorrectPasswordNotification();
           }
         },
         function(err) {
@@ -135,6 +144,9 @@ export default {
       ];
 
       return users.find(user => user.username == username);
+    },
+    showIncorrectPasswordNotification(){
+      this.display = true;
     }
   }
 };

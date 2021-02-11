@@ -7,9 +7,9 @@
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
   methods: {
-    logIn(user){
+    logIn(user) {
       console.log(user);
     }
   }
