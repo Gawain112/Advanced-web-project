@@ -38,23 +38,6 @@
     </el-form-item>
 
     <el-form-item
-      label="Name"
-      prop="name"
-      :rules="[
-        {
-          required: true,
-          message: 'name cannot be blank',
-          trigger: 'blur'
-        }
-      ]"
-    >
-      <el-input
-        v-model="registerModel.name"
-        placeholder="Input name"
-      ></el-input>
-    </el-form-item>
-
-    <el-form-item
       label="Username"
       prop="username"
       :rules="[
