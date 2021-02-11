@@ -1,13 +1,15 @@
 <template>
   <el-main>
-    <div class="card">
-      <div class="card-title border-bottom">
-        <h1 class="display-1">Login</h1>
-      </div>
-      <div class="card-body">
+    <el-card class="box-card">
+      <template #header>
+        <div class="card-header border-bottom">
+          <h1 class="display-1">Login</h1>
+        </div>
+      </template>
+      <div>
         <LoginForm size="medium" v-on:loggedIn="logIn" />
       </div>
-    </div>
+    </el-card>
   </el-main>
 </template>
 
