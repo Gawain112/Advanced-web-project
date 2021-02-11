@@ -1,13 +1,19 @@
 <template>
   <router-link to="/">Home</router-link> |
-  <router-link to="/about">About</router-link>
-  <router-view />
+  <router-link to="/about">About</router-link> |
+  <router-link to="/login">Login</router-link>
+  <router-view @loggedIn="logIn" />
 </template>
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App",
+  methods: {
+    logIn(user) {
+      console.log(user);
+    }
+  }
+};
 </script>
 
 <style>
