@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import AddData from "@/views/AddData/AddData.vue";
 
 const routes = [
   {
@@ -22,8 +23,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "adddata" */ "../views/AddData.vue")
+    component: AddData
   }
 ];
 
