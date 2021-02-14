@@ -1,6 +1,6 @@
 <template>
 
-<h1> Add Data </h1>
+<h1>Add Data</h1>
 
 <el-form ref="addDataForm">
 
@@ -31,6 +31,7 @@
 </el-form-item>
 
  </el-form>   
+
 </template>
 
 <script>
@@ -47,9 +48,12 @@ export default {
       function submitAddedData() {
          context.emit("add-data", heartType.value, inputValue1.value, inputValue2.value);
       }
+      
 
       return {heartType, inputValue1, inputValue2, submitAddedData };
 
    }
 };
 </script>
+
+

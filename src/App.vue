@@ -4,12 +4,12 @@
   <router-link to="/adddata">Add Data</router-link>
   <router-view />
 
-
  <add-data @add-data="addNewData"></add-data>
   <heart-data
   v-for="data in data"
   :key="data.id"
-  :data="data">
+  :data="data"
+  @delete-data="deleteData">
   </heart-data>
 
 </template>
@@ -23,7 +23,7 @@ export default {
   components: { addData, heartData },
 
   setup() {
-          const data = reactive([{
+           const data = reactive([{
             hearttype: "Force-Time curve",
             value1: "Test 1",
             value2: "Test 1",
@@ -41,10 +41,16 @@ export default {
 
     }
 
+    function deleteData(hearttype) {
+      const returnedData = data.find(data => data.hearttype === hearttype);
+      const pos = data.indexOf(returnedData);
+      data.splice(pos, 1);
+    }
+
     
-    return { data, addNewData };
+    return { data, addNewData, deleteData };
   }
-};
+}; 
 
 </script> 
  

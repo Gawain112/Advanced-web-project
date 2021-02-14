@@ -2,19 +2,25 @@
     <el-card class="box-card-main">
         <el-row>
             <el-col>
-                <el-button> {{data.hearttype}}</el-button>
+                <el-card>{{data.hearttype}}</el-card>
             </el-col>
         </el-row>
 
         <el-row>
             <el-col>
-                <el-button> {{data.value1}}</el-button>
+                <el-card>{{data.value1}}</el-card>
             </el-col>
         </el-row>
 
         <el-row>
             <el-col>
-                <el-button> {{data.value2}}</el-button>
+                <el-card>{{data.value2}}</el-card>
+            </el-col>
+        </el-row>
+
+        <el-row>
+            <el-col>
+                <el-button @click="$emit('delete-data', data.hearttype)">Delete Data</el-button>
             </el-col>
         </el-row>
 
