@@ -33,6 +33,10 @@ const routes = [
     path: "/tests",
     name: "Tests",
     component: firebaseTests
+  },
+  {
+    path: "/:catchAll(.*)",
+    redirect: "/"
   }
 ];
 
