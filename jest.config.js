@@ -5,7 +5,7 @@ module.exports = {
       tsConfig: "./tsconfig.json"
     },
     "ts-jest": {
-      tsConfigFile: "tsconfig.json",
+      tsConfig: "tsconfig.json",
       enableTsDiagnostics: true
     }
   },
