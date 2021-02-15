@@ -28,15 +28,18 @@ export default {
     const searchQuery = ref("");
     const searchResults = ref([]);
 
-    const base_url = "https://api.omim.org/api";
+    const data = require("../../assets/cardiomyopathyData.json");
 
-    async function search() {
-      let url = base_url + searchQuery.value;
-      console.log(url);
-      window
-        .fetch(url)
-        .then(res => res.ok ? res.text() : "")
-        .then(resText => console.log(resText));
+    async function searchByGeneSymbol() {
+      searchResults.value = data.genes.filter(data => {
+        return data.entrezGeneSymbol == searchQuery.value;
+      });
+
+      console.log(searchResults.value);
+    }
+
+    async function search(){
+      searchByGeneSymbol();
     }
 
     return { search, searchQuery, searchResults };
