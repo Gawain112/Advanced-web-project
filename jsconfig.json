@@ -1,12 +1,12 @@
 {
   "allowJs": true,
   "compilerOptions": {
+      "target": "esnext",
       "baseUrl": ".",
       "paths": {
           "@/*": ["src/*"]
       },
-      "moduleResolution": "node",
-      "sourceMap": false,
+      "moduleResolution": "node"
   },
   "include": [
     "./src/**/*"
