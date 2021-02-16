@@ -6,9 +6,45 @@
       </template>
       <div v-if="geneInfo.basicInfo">
         <el-row><h2>Basic Information</h2></el-row>
-        <el-row v-for="(value, key) in geneInfo.basicInfo" :key="key">
-          <p class="text-success fw-bold">{{ key }}:&nbsp;</p>
-          <p class="fst-italic">{{ value }}</p>
+        <el-row>
+          <el-col :span="4"><p class="text-primary fs-bold">Name:</p></el-col>
+          <el-col :span="20"
+            ><p class="text-secondary">
+              {{ geneInfo.basicInfo.nomenclaturename }}
+            </p></el-col
+          >
+        </el-row>
+        <el-row>
+          <el-col :span="4"
+            ><p class="text-primary fs-bold">Description:</p></el-col
+          >
+          <el-col :span="20"
+            ><p class="text-secondary">
+              {{ geneInfo.basicInfo.summary }}
+            </p></el-col
+          >
+        </el-row>
+        <el-row>
+          <el-col :span="4"
+            ><p class="text-primary fs-bold">Other Aliases:</p></el-col
+          >
+          <el-col :span="20"
+            ><p class="text-secondary">
+              {{ geneInfo.basicInfo.otheraliases }}
+            </p></el-col
+          >
+        </el-row>
+        <el-row>
+          <el-col :span="4"
+            ><p class="text-primary fs-bold">Assosiated Diseases:</p></el-col
+          >
+          <el-col :span="20"
+            ><p class="text-secondary">
+              <ul>
+                <li v-for="disease in geneInfo.dbDiseases" :key="disease">{{ disease.diseaseName }}</li>
+              </ul>
+            </p></el-col
+          >
         </el-row>
       </div>
     </el-card>
@@ -19,7 +55,7 @@
 import { ref } from "vue";
 
 export default {
-  name: "External Search",
+  name: "Gene Additional Information",
   props: {
     geneSymbol: {
       name: "Gene Symbol",
@@ -30,10 +66,18 @@ export default {
   setup(props) {
     const geneInfo = ref({});
 
-    const geneInfoUrl = "http://rest.genenames.org/fetch/symbol/";
+    let cardiomyopathyData = require("@/assets/cardiomyopathyData.json");
+    geneInfo.value = cardiomyopathyData["genes"].filter(e => {
+      return e.entrezGeneSymbol == props.geneSymbol;
+    })[0];
+
+
+    const geneInfoUrl =
+      "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?retmode=json&db=gene&id=" +
+      geneInfo.value.entrezGeneId;
 
     window
-      .fetch(geneInfoUrl + props.geneSymbol, {
+      .fetch(geneInfoUrl, {
         headers: {
           Accept: "application/json"
         }
@@ -42,8 +86,7 @@ export default {
         return res.json();
       })
       .then(async json => {
-        geneInfo.value["basicInfo"] = json.response.docs[0];
-        console.log(geneInfo.value["basicInfo"]);
+        geneInfo.value["basicInfo"] = json.result[geneInfo.value.entrezGeneId];
       });
 
     return { geneInfo };

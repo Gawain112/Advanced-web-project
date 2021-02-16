@@ -1,5 +1,5 @@
 <template>
-  <SearchGene geneSymbol="PRODH2" />
+  <br><h1>Search Results: </h1><br> <SearchGene geneSymbol="NUP107" />
 </template>
 
 <script>
