@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Login from "@/views/account/Login.vue";
 import firebaseTests from "@/firebase/firebaseTests/FirebaseTests.vue";
-import ExternalSearch from "@/views/search/ExternalSearch.vue";
+import Search from "@/views/Search.vue";
 
 const routes = [
   {
@@ -30,9 +30,9 @@ const routes = [
     component: firebaseTests
   },
   {
-    path: "/external-search",
-    name: "External Search",
-    component: ExternalSearch
+    path: "/search",
+    name: "Search",
+    component: Search
   }
 ];
 
