@@ -1,5 +1,5 @@
-<template>
-    <el-card class="box-card-main">
+ <template>
+     <el-card class="box-card-main">
         <el-row>
             <el-col>
                 <el-card>{{data.hearttype}}</el-card>
@@ -27,18 +27,31 @@
         </el-card>
 </template>
 <script>
+//import { ref } from "vue";
+//import { firebaseFireStore } from "@/firebase/database.js";
 export default {
-    name: "HeartData",
+     name: "HeartData",
 
     props: {
         data: {
-            type: Array,
+            hearttype: {
+            type: String,
             required: true,
+            },
+            value1: {
+                type: String,
+                required: true,
+            },
+            value2: {
+                type: String,
+                required: true
+            }
         
-        }
-    },
+        } 
+}, 
 
     setup() {
-    },
+
+    }
 };
-</script>
+</script> 

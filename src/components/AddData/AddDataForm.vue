@@ -36,6 +36,7 @@
 
 <script>
 import { ref } from "vue";
+//import { useRouter } from "vue-router";
 
 export default {
    emits: ["add-data"],
@@ -45,8 +46,10 @@ export default {
       const inputValue1 = ref("");
       const inputValue2 = ref("");
 
+
       function submitAddedData() {
          context.emit("add-data", heartType.value, inputValue1.value, inputValue2.value);
+
       }
       
 
