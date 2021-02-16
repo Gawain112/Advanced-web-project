@@ -1,5 +1,7 @@
 <template>
-  <br><h1>Search Results: </h1><br> <SearchGene geneSymbol="NUP107" />
+  <br><h1>Search Results: </h1><br> 
+  <SearchGene geneSymbol="NUP107" />
+  <SearchGene geneSymbol="AARS2" />
 </template>
 
 <script>
