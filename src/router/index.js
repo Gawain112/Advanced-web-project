@@ -14,15 +14,15 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: 'Home | Cardiomyopathy',
+      title: "Home | Cardiomyopathy",
       metaTags: [
         {
-          name: 'description',
-          content: 'Your number 1 cardiomyopathy data and analysis site.'
+          name: "description",
+          content: "Your number 1 cardiomyopathy data and analysis site."
         },
         {
-          property: 'og:description',
-          content: 'Your number 1 cardiomyopathy data and analysis site.'
+          property: "og:description",
+          content: "Your number 1 cardiomyopathy data and analysis site."
         }
       ]
     }

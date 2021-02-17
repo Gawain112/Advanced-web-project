@@ -1,5 +1,4 @@
 <template>
-  <div class="site">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <ul class="nav navbar-nav mr-auto">
         <li class="nav-item">
@@ -23,7 +22,7 @@
       </ul>
     </nav>
 
-    <router-view />
+    <router-view @loggedIn="logIn" />
 
     <footer class="page-footer bg-dark mt-3">
       <div class="footer-copyright text-light text-center py-3">
@@ -31,7 +30,6 @@
       </div>
       <router-link :to="{ name: 'Sitemap' }" class="text-decoration-none text-light">Site Map</router-link>
     </footer>
-  </div>
 </template>
 
 <script>
@@ -42,7 +40,7 @@ export default {
       console.log(user);
     }
   }
-}
+};
 </script>
 
 <style>

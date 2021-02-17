@@ -1,16 +1,16 @@
 <template>
-  <div class="hello">
+  <div class="Home">
     <h1>{{ msg }}</h1>
     <p>
       For more information about Cardiomyopathy, we recommend checking out these sites:
+    </p>
       <ul>
         <li>
           <a
             href="https://www.nhs.uk/conditions/cardiomyopathy/"
             target="_blank"
-            rel="noopener"
-            >NHS</a
-          >
+            rel="noopener">NHS
+            </a>
         </li>
         <li>
           <a
@@ -21,7 +21,6 @@
           >
         </li>
       </ul>
-    </p>
   </div>
 </template>
 
