@@ -9,7 +9,8 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    meta: { title: 'Home | Cardiomyopathy' }
   },
   {
     path: "/about",
@@ -18,27 +19,32 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    meta: { title: 'About | Cardiomyopathy' }
   },
   {
     path: "/analysis",
     name: "Analysis",
-    component: Analysis
+    component: Analysis,
+    meta: { title: 'Analysis | Cardiomyopathy' }
   },
   {
     path: "/login",
     name: "Login",
-    component: Login
+    component: Login,
+    meta: { title: 'Login | Cardiomyopathy' }
   },
   {
     path: "/tests",
     name: "Tests",
-    component: firebaseTests
+    component: firebaseTests,
+    meta: { title: 'Tests | Cardiomyopathy' }
   },
   {
     path: "/sitemap",
     name: "Site Map",
-    component: Sitemap
+    component: Sitemap,
+    meta: { title: 'Site Map | Cardiomyopathy' }
   }
 ];
 
