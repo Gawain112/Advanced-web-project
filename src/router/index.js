@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Login from "@/views/account/Login.vue";
 import firebaseTests from "@/firebase/firebaseTests/FirebaseTests.vue";
+import Search from "@/views/search/Search.vue";
 
 const routes = [
   {
@@ -27,6 +28,11 @@ const routes = [
     path: "/tests",
     name: "Tests",
     component: firebaseTests
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: Search
   }
 ];
 
