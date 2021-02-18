@@ -22,3 +22,9 @@
       </ul>
     </nav>
 </template>
+
+<script>
+export default {
+  name: "Header"
+};
+</script>

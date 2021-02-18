@@ -59,7 +59,7 @@ const routes = [
   },
   {
     path: "/sitemap",
-    name: "Site Map",
+    name: "Sitemap",
     component: Sitemap,
     meta: { title: "Site Map | Cardiomyopathy" }
   },
