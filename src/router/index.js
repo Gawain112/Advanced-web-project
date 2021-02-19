@@ -2,11 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Login from "@/views/account/Login.vue";
 import firebaseTests from "@/firebase/firebaseTests/FirebaseTests.vue";
-<<<<<<< HEAD
 import Search from "@/views/search/Search.vue";
-=======
-import Search from "@/views/Search.vue";
->>>>>>> 0b4ddd46e9bfe245d5ed67fd632d76cf9452d1a9
 
 const routes = [
   {
