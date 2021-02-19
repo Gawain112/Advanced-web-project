@@ -3,7 +3,9 @@
     <el-row><h1>Search</h1></el-row>
     <el-row>
       <el-col :span="4"
-        ><label for="cardiomyopathyTypeInput">Cardiomyopathy Type:</label></el-col
+        ><label for="cardiomyopathyTypeInput"
+          >Cardiomyopathy Type:</label
+        ></el-col
       >
       <el-col :span="20"
         ><el-select
@@ -36,14 +38,21 @@
         ></el-col
       >
     </el-row>
+
+    <div v-if="selectedMutatedGene">
+      <SearchGene :geneSymbol="selectedMutatedGene" />
+    </div>
+    
   </el-main>
 </template>
 
 <script>
 import { ref } from "vue";
+import SearchGene from "@/components/search/SearchGene";
 
 export default {
   name: "Search",
+  components: { SearchGene },
   setup() {
     const data = {
       TPM1: {},
@@ -66,8 +75,8 @@ export default {
 
     let mutatedGenes = Object.keys(data);
     let cardiomyopathyTypes = Object.values(data).filter(e => {
-        return e.cardiomyopathyTypes;
-      });
+      return e.cardiomyopathyTypes;
+    });
     cardiomyopathyTypes = cardiomyopathyTypes.values();
 
     let searchResults = ref("");
