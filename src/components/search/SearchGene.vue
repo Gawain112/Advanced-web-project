@@ -4,7 +4,10 @@
       <template #header>
         <h1>{{ geneSymbol }}</h1>
       </template>
-      <div v-if="geneInfo.basicInfo">
+      <div v-if="error">
+        <el-row>{{ error }}</el-row>
+      </div>
+      <div v-else-if="geneInfo.basicInfo">
         <el-row><h2>Basic Information</h2></el-row>
         <el-row>
           <el-col :span="4"><p class="text-primary fs-bold">Name:</p></el-col>
@@ -38,13 +41,23 @@
           <el-col :span="4"
             ><p class="text-primary fs-bold">Assosiated Diseases:</p></el-col
           >
-          <el-col :span="20"
-            ><p class="text-secondary">
-              <ul>
-                <li v-for="disease in geneInfo.dbDiseases" :key="disease">{{ disease.diseaseName }}</li>
-              </ul>
-            </p></el-col
-          >
+          <el-col :span="20">
+            <ul>
+              <li v-for="disease in geneInfo.dbDiseases" :key="disease">
+                {{ disease.diseaseName }}
+              </li>
+            </ul>
+          </el-col>
+        </el-row>
+      </div>
+      <div v-else>
+        <el-row
+          v-loading="geneInfo"
+          element-loading-text="Loading..."
+          element-loading-spinner="el-icon-loading"
+          element-loading-background="rgba(0, 0, 0, 0.8)"
+          style="width: 100%; margin-bottom: 4rem; margin-top: 4rem;"
+        >
         </el-row>
       </div>
     </el-card>
@@ -65,31 +78,36 @@ export default {
   },
   setup(props) {
     const geneInfo = ref({});
+    const error = ref("");
 
     let cardiomyopathyData = require("@/assets/cardiomyopathyData.json");
     geneInfo.value = cardiomyopathyData["genes"].filter(e => {
       return e.entrezGeneSymbol == props.geneSymbol;
     })[0];
 
+    if (!geneInfo.value) {
+      error.value = "Could not find additional gene information.";
+    } else {
+      const geneInfoUrl =
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?retmode=json&db=gene&id=" +
+        geneInfo.value.entrezGeneId;
 
-    const geneInfoUrl =
-      "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?retmode=json&db=gene&id=" +
-      geneInfo.value.entrezGeneId;
+      window
+        .fetch(geneInfoUrl, {
+          headers: {
+            Accept: "application/json"
+          }
+        })
+        .then(async res => {
+          return res.json();
+        })
+        .then(async json => {
+          geneInfo.value["basicInfo"] =
+            json.result[geneInfo.value.entrezGeneId];
+        });
+    }
 
-    window
-      .fetch(geneInfoUrl, {
-        headers: {
-          Accept: "application/json"
-        }
-      })
-      .then(async res => {
-        return res.json();
-      })
-      .then(async json => {
-        geneInfo.value["basicInfo"] = json.result[geneInfo.value.entrezGeneId];
-      });
-
-    return { geneInfo };
+    return { geneInfo, error };
   }
 };
 </script>

@@ -31,6 +31,7 @@
           style="width: 90%"
           id="mutatedGeneInput"
           v-model="selectedMutatedGene"
+          @click="selectedMutatedGene = null"
         >
           <el-option v-for="key in mutatedGenes" :key="key" :value="key">{{
             key
@@ -40,9 +41,8 @@
     </el-row>
 
     <div v-if="selectedMutatedGene">
-      <SearchGene :geneSymbol="selectedMutatedGene" />
+      <SearchGene v-bind:geneSymbol="selectedMutatedGene" />
     </div>
-    
   </el-main>
 </template>
 
@@ -56,10 +56,10 @@ export default {
   setup() {
     const data = {
       TPM1: {},
-      TNNT: {
+      TNNT2: {
         cardiomyopathyTypes: [
           "hypertrophic cardiomyopathy",
-          "standard cardiomyopathy"
+          "dilated cardiomyopathy"
         ]
       },
       MYH: {
@@ -82,8 +82,6 @@ export default {
     let searchResults = ref("");
 
     let search = async () => {};
-
-    console.log(cardiomyopathyTypes);
 
     return {
       mutatedGenes,
