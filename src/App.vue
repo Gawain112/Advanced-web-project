@@ -1,7 +1,7 @@
 <template>
     <appHeader />
 
-    <router-view @loggedIn="logIn" />
+    <router-view @loggedIn="logIn" class="col-sm-8 mx-auto" />
 
     <appFooter />
 </template>
