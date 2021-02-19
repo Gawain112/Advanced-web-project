@@ -32,4 +32,5 @@ export default {
   color: #2c3e50;
 }
 
+@import'~bootstrap/dist/css/bootstrap.css';
 </style>
