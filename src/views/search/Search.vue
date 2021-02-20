@@ -40,6 +40,8 @@
       >
     </el-row>
 
+    <SearchSynopsis />
+
     <div v-if="selectedMutatedGene">
       <SearchGene v-bind:geneSymbol="selectedMutatedGene" />
     </div>
@@ -49,10 +51,11 @@
 <script>
 import { ref } from "vue";
 import SearchGene from "@/components/search/SearchGene";
+import SearchSynopsis from "@/components/search/SearchSynopsis";
 
 export default {
   name: "Search",
-  components: { SearchGene },
+  components: { SearchGene, SearchSynopsis },
   setup() {
     const data = {
       TPM1: {},
