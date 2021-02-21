@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import AddData from "@/views/AddData/AddData.vue";
+import HeartData from "@/views/HeartData/HeartData.vue";
 
 const routes = [
   {
@@ -24,6 +25,14 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: AddData
+  },
+  {
+    path: "/heartdata",
+    name: "HeartData",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: HeartData
   }
 ];
 

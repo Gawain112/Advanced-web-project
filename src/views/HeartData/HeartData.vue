@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
      <el-card class="box-card-main">
         <el-row>
             <el-col>
@@ -26,19 +26,8 @@
 
         </el-card>
 
-     <HeartDataItem
-      v-for="newData in data"
-      :key="newData.hearttype"
-      :hearttype="newData.hearttype"
-      :value1="newData.value1"
-      :value2="newData.value2"
-
-      @delete-data="deleteSubmittedData"
-    /> 
-
 </template>
 <script>
-//import HeartDataItem from "@/components/AddData/HeartDataItem";
 export default {
     //components: { HeartDataItem },
     emits: ["delete-data"],
@@ -65,10 +54,6 @@ export default {
             type: Array,
             default: () => [],
         },
-        addedInfo: {
-            type: Object,
-            default: () => {},
-        },
         }, 
  
     setup(props, context) {
@@ -81,4 +66,4 @@ export default {
         } 
 
 };
-</script> -->
+</script> 

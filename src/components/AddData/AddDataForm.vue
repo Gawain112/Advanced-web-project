@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 
 <h1>Add Data</h1>
 
@@ -36,7 +36,6 @@
 
 <script>
 import { ref } from "vue";
-//import { useRouter } from "vue-router";
 
 export default {
    emits: ["add-data"],
@@ -51,12 +50,11 @@ export default {
          context.emit("add-data", heartType.value, inputValue1.value, inputValue2.value);
 
       }
-      
 
-      return {heartType, inputValue1, inputValue2, submitAddedData };
+      return { heartType, inputValue1, inputValue2, submitAddedData };
 
    }
 };
-</script>
+</script> -->
 
 
