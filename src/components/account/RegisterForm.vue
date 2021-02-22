@@ -97,7 +97,7 @@
 <script>
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { firebaseAuthentication } from "@/firebase/database";
+import { firebaseAuthenticationService } from "@/firebase/database";
 
 export default {
   name: "RegisterForm",
@@ -136,7 +136,7 @@ export default {
       };
 
       if (!errorRegistration.value) {
-        firebaseAuthentication
+        firebaseAuthenticationService
           .createUserWithEmailAndPassword(info.email, info.password)
           .then(
             () => {
@@ -158,7 +158,8 @@ export default {
       institutioanalAffilation,
       password,
       confirmPassword,
-      register
+      register,
+      errorRegistration
     };
   }
 };
