@@ -4,6 +4,7 @@
     <router-view @loggedIn="logIn" class="col-sm-8 mx-auto" />
 
     <appFooter />
+</template>
 
 <script>
 import Header from '@/components/Header';
