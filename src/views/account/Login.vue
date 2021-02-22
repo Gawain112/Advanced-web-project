@@ -26,11 +26,11 @@ export default {
         title: "Success",
         message: "Hello, " + user + ". You are now logged in.",
         type: "success",
-        duration: 3000
+        duration: 3000,
       });
 
       this.$router.push("/");
-    }
-  }
+    },
+  },
 };
 </script>
