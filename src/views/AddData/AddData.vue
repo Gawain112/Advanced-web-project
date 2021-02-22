@@ -39,6 +39,12 @@ import { ref } from "vue";
 
 export default {
    emits: ["add-data"],
+   props: {
+    dataAdded: {
+      type: Array,
+      default: () => [],
+    },
+   },
 
    setup(props,context) {
       const hearttype = ref("");

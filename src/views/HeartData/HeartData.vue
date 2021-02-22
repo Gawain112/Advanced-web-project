@@ -54,6 +54,10 @@ export default {
             type: Array,
             default: () => [],
         },
+        addedInfo: {
+        type: Object,
+        default: () => {},
+    },
         }, 
  
     setup(props, context) {

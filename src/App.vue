@@ -3,7 +3,8 @@
   <router-link to="/about">About</router-link> |
   <router-link to="/adddata">Add Data</router-link> |
   <router-link to="/heartdata">Heart Data</router-link>
-  <router-view @add-data="addNewData"/>
+  <router-view 
+  @add-data="addNewData"/>
 
   <heart-data 
   v-for="data in data"
@@ -30,6 +31,11 @@ import { firebaseFireStore, timestamp } from "./firebase/database.js";
 export default {
   name: "App",
   components: { heartData },
+  methods: {
+    logIn(user) {
+      console.log(user);
+    }
+  },
 
   setup() {
     const addedInfo = ref(null);
@@ -38,27 +44,27 @@ export default {
       hearttype: "Force-Time curve",
       value1: "Test 1",
       value2: "Test 1",
-    }]);
+    }]); 
 
-     firebaseFireStore
-        .collection("addedData")
-        .doc("CmfvL1XyujCRhmnEOEzq")
-        .get()
-        .then((snapshot) => {
-          addedInfo.value = snapshot.data().hearttype;
-          addedInfo.value = snapshot.data().value1;
-          addedInfo.value = snapshot.data().value2;
-        });  
+    /* firebaseFireStore
+    .collection("addedData")
+    .get()
+    .then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+    }); 
+});*/
 
-      /* firebaseFireStore
+      firebaseFireStore
       .collection("addedData")
-      .doc("bGHbGugKUXpUjXwXRmpy")
+      .doc("AkFzdra4KL0knnZUV6rd")
       .collection("dataAdded")
       .onSnapshot((snapShot) => {
         const snapData = [];
 
         snapShot.forEach((doc) => {
           snapData.push({
+            uuid: doc.data().uuid,
             hearttype: doc.data().hearttype,
             value1: doc.data().value1,
             value2: doc.data().value2
@@ -66,10 +72,11 @@ export default {
         });
         addedInfo.value = snapData;
         console.log(snapData);
-      }); */ 
+      });
+
         
 
-    function addNewData(hearttype, value1, value2) {
+    function addNewData( hearttype, value1, value2) {
       const newData = reactive({
         uuid: new Date().getMilliseconds(),
         hearttype: hearttype,
@@ -97,15 +104,16 @@ export default {
         .doc(addedInfo.value.uid)
         .collection("dataAdded")
         .where("uuid", "==", uuid )
+        //.where("uuid", "==", 640 )
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             doc.ref.delete();
           });
+
         });
-        
-        /* {
-          if (querySnapshot.size > 0 ) {
+
+        /*  if (querySnapshot.size > 0 ) {
             console.log(querySnapshot.docs[0].data());
           } else {
             console.log("No Data");
@@ -116,23 +124,6 @@ export default {
           }); */
         
         } 
-
-/*       function deleteData(hearttype){
-
-        var q = firebaseFireStore.collection("addedData")
-        .doc(addedInfo.value.uid)
-        .collection("dataAdded")
-        .where("hearttype", "==", hearttype);
-        
-        console.log(q.get());
-
-        q.get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          doc.ref.delete();
-          console.log("SUCCESS");
-          });
-        });
-      } */
 
     /* function deleteData(hearttype) {
       const returnedData = data.find(data => data.hearttype === hearttype);
