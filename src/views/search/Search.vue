@@ -3,47 +3,38 @@
     <el-row><h1>Search</h1></el-row>
     <el-row>
       <el-col :span="4"
-        ><label for="cardiomyopathyTypeInput"
-          >Cardiomyopathy Type:</label
-        ></el-col
+        ><label for="cardiomyopathyTypeInput">Type to search: </label></el-col
       >
-      <el-col :span="20"
-        ><el-select
-          style="width: 90%"
-          id="cardiomyopathyTypeInput"
-          v-model="selectedCardiomyopathyType"
-        >
-          <el-option
-            v-for="key in cardiomyopathyTypes"
-            :key="key"
-            :value="key"
-            >{{ key }}</el-option
-          ></el-select
-        ></el-col
-      >
+      <el-col :span="16">
+        <el-input @input="submitPressed = false" v-model="search"></el-input>
+      </el-col>
+      <el-col :span="4">
+        <el-select @change="submitPressed = false" v-model="selectedSearchType">
+          <el-option default value="genes">Genes</el-option>
+          <el-option value="synopsis">Clinical Synopsis</el-option>
+          <el-option value="phenotype">Phenotype</el-option>
+        </el-select>
+      </el-col>
     </el-row>
+
     <el-row>
-      <el-col :span="4"
-        ><label for="mutatedGeneInput">Mutated Gene:</label></el-col
-      >
-      <el-col :span="20"
-        ><el-select
-          style="width: 90%"
-          id="mutatedGeneInput"
-          v-model="selectedMutatedGene"
-          @click="selectedMutatedGene = null"
-        >
-          <el-option v-for="key in mutatedGenes" :key="key" :value="key">{{
-            key
-          }}</el-option></el-select
+      <el-col :span="24" class="mt-2"
+        ><el-button
+          @click="submitPressed = true"
+          @keyup.enter="submitPressed = true"
+          id="search-button"
+          >Search</el-button
         ></el-col
       >
     </el-row>
 
-    <SearchSynopsis />
-
-    <div v-if="selectedMutatedGene">
-      <SearchGene v-bind:geneSymbol="selectedMutatedGene" />
+    <div v-if="submitPressed">
+      <div v-if="selectedSearchType == 'synopsis'">
+        <SearchSynopsis v-bind:toSearch="search" />
+      </div>
+      <div v-if="selectedSearchType == 'genes'">
+        <SearchGene v-bind:geneSymbol="search" />
+      </div>
     </div>
   </el-main>
 </template>
@@ -57,41 +48,13 @@ export default {
   name: "Search",
   components: { SearchGene, SearchSynopsis },
   setup() {
-    const data = {
-      TPM1: {},
-      TNNT2: {
-        cardiomyopathyTypes: [
-          "hypertrophic cardiomyopathy",
-          "dilated cardiomyopathy"
-        ]
-      },
-      MYH: {
-        cardiomyopathyTypes: [
-          "hypertrophic cardiomyopathy",
-          "standard cardiomyopathy"
-        ]
-      }
-    };
-
-    let selectedMutatedGene = ref("");
-    let selectedCardiomyopathyType = ref("");
-
-    let mutatedGenes = Object.keys(data);
-    let cardiomyopathyTypes = Object.values(data).filter(e => {
-      return e.cardiomyopathyTypes;
-    });
-    cardiomyopathyTypes = cardiomyopathyTypes.values();
-
-    let searchResults = ref("");
-
-    let search = async () => {};
+    const selectedSearchType = ref("");
+    const search = ref("");
+    const submitPressed = ref(false);
 
     return {
-      mutatedGenes,
-      cardiomyopathyTypes,
-      searchResults,
-      selectedMutatedGene,
-      selectedCardiomyopathyType,
+      selectedSearchType,
+      submitPressed,
       search
     };
   }

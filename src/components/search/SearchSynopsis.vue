@@ -15,14 +15,14 @@
 <script>
 import { ref } from "vue";
 export default {
-  setup() {
+  setup(props) {
     const geneInfo = ref({});
     geneInfo.value.synopsis = {};
 
     const omimUrlBaseUrl = "https://api.omim.org/api";
     let clinicalSynopsisUrl =
       omimUrlBaseUrl +
-      "/clinicalSynopsis/search?search=Cardiomyopathy&format=json&apiKey=Jm05PtgLRD2GxaGYfr4xxg&limit=400";
+      "/clinicalSynopsis/search?format=json&apiKey=Jm05PtgLRD2GxaGYfr4xxg&limit=20&search="+props.toSearch;
     window
       .fetch(clinicalSynopsisUrl)
       .then(async res => {

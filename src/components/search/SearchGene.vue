@@ -7,33 +7,13 @@
       <div v-if="error">
         <el-row>{{ error }}</el-row>
       </div>
-      <div v-else-if="geneInfo.basicInfo">
+      <div v-else-if="geneInfo.geneMapList">
         <el-row><h2>Basic Information</h2></el-row>
         <el-row>
           <el-col :span="4"><p class="text-primary fs-bold">Name:</p></el-col>
           <el-col :span="20"
             ><p class="text-secondary">
-              {{ geneInfo.basicInfo.nomenclaturename }}
-            </p></el-col
-          >
-        </el-row>
-        <el-row>
-          <el-col :span="4"
-            ><p class="text-primary fs-bold">Description:</p></el-col
-          >
-          <el-col :span="20"
-            ><p class="text-secondary">
-              {{ geneInfo.basicInfo.summary }}
-            </p></el-col
-          >
-        </el-row>
-        <el-row>
-          <el-col :span="4"
-            ><p class="text-primary fs-bold">Other Aliases:</p></el-col
-          >
-          <el-col :span="20"
-            ><p class="text-secondary">
-              {{ geneInfo.basicInfo.otheraliases }}
+              {{ geneInfo.geneMapList[0].geneMap.geneName }}
             </p></el-col
           >
         </el-row>
@@ -42,11 +22,16 @@
             ><p class="text-primary fs-bold">Assosiated Diseases:</p></el-col
           >
           <el-col :span="20">
-            <ul>
-              <li v-for="disease in geneInfo.dbDiseases" :key="disease">
-                {{ disease.diseaseName }}
+            <ol>
+              <li
+                class="text-secondary"
+                v-for="disease in geneInfo.geneMapList[0].geneMap
+                  .phenotypeMapList"
+                :key="disease"
+              >
+                {{ disease.phenotypeMap.phenotype }}
               </li>
-            </ul>
+            </ol>
           </el-col>
         </el-row>
       </div>
@@ -80,32 +65,26 @@ export default {
     const geneInfo = ref({});
     const error = ref("");
 
-    let cardiomyopathyData = require("@/assets/cardiomyopathyData.json");
-    geneInfo.value = cardiomyopathyData["genes"].filter(e => {
-      return e.entrezGeneSymbol == props.geneSymbol;
-    })[0];
+    const geneInfoUrl =
+      "https://api.omim.org/api/geneMap/search?start=0&limit=20&format=json&apiKey=Jm05PtgLRD2GxaGYfr4xxg&search=" +
+      props.geneSymbol;
 
-    if (!geneInfo.value) {
-      error.value = "Could not find additional gene information.";
-    } else {
-      const geneInfoUrl =
-        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?retmode=json&db=gene&id=" +
-        geneInfo.value.entrezGeneId;
-
-      window
-        .fetch(geneInfoUrl, {
-          headers: {
-            Accept: "application/json"
-          }
-        })
-        .then(async res => {
-          return res.json();
-        })
-        .then(async json => {
-          geneInfo.value["basicInfo"] =
-            json.result[geneInfo.value.entrezGeneId];
-        });
-    }
+    window
+      .fetch(geneInfoUrl, {
+        headers: {
+          Accept: "application/json"
+        }
+      })
+      .then(async res => {
+        return res.json();
+      })
+      .then(async json => {
+        if (Object.keys(json.omim.searchResponse.geneMapList).length > 0) {
+          geneInfo.value = json.omim.searchResponse;
+        } else {
+          error.value = "Could not find information on this gene";
+        }
+      });
 
     return { geneInfo, error };
   }
