@@ -3,6 +3,7 @@ import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
 import Analysis from "@/views/Analysis.vue";
 import firebaseTests from "@/firebase/firebaseTests/FirebaseTests.vue";
+import Search from "@/views/search/Search.vue";
 import Sitemap from "@/views/Sitemap.vue";
 import Login from "@/views/account/Login.vue";
 import Register from "@/views/account/Register.vue";
@@ -67,6 +68,11 @@ const routes = [
     name: "Sitemap",
     component: Sitemap,
     meta: { title: "Site Map | Cardiomyopathy" }
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: Search
   },
   {
     path: "/:catchAll(.*)",
