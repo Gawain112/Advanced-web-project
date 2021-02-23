@@ -1,18 +1,20 @@
 <template>
-  <router-link to="/">Home</router-link> |
-  <router-link to="/about">About</router-link> |
-  <router-link to="/login">Login</router-link> |
-  <router-link to="/register">Register</router-link> |
+  <Header></Header>
   <router-view @loggedIn="logIn" />
+  <Footer></Footer>
 </template>
 
 <script>
+import Footer from "./components/Footer.vue";
+import Header from "./components/Header.vue";
 export default {
   name: "App",
-  methods: {
-    logIn(user) {
+  components: { Footer, Header },
+  setup() {
+    let logIn = user => {
       console.log(user);
-    },
+    };
+    return { logIn };
   },
 };
 </script>
@@ -24,6 +26,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
