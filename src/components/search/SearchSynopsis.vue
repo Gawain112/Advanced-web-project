@@ -24,14 +24,14 @@
 <script>
 import { ref } from "vue";
 export default {
+  name: "SynopsisSearch",
   props: {
     toSearch: {
       name: "Search Phrase",
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  name: "Synopsis Search",
   setup(props) {
     const geneInfo = ref({});
     geneInfo.value.synopsis = {};
@@ -56,6 +56,6 @@ export default {
       });
 
     return { geneInfo };
-  }
+  },
 };
 </script>
