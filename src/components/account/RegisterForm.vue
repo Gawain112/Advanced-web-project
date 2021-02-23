@@ -1,47 +1,89 @@
 <template>
   <el-form lable-width="95px" class="demo-ruleForm" @submit.prevent>
-    <el-form-item label="Name">
-      <el-input
-        type="text"
-        placeholder="enter full name"
-        required
-        autocomplete="off"
-        v-model="name"
-      ></el-input>
+    <el-form-item
+      label="Name"
+      prop="name"
+      :rules="[
+        {
+          required: true,
+          message: 'Name cannot be blank',
+          trigger: 'blur'
+        },
+        {
+          min: 3,
+          message: 'Name must be 3 characters or more',
+          trigger: 'blur'
+        }
+      ]">
+        <el-input
+          type="text"
+          placeholder="Enter full name"
+          required
+          autocomplete="off"
+          v-model="name"
+        ></el-input>
     </el-form-item>
 
     <el-form-item label="Address">
       <el-input
         type="text"
-        placeholder="enter your address"
+        placeholder="Enter your address"
         autocomplete="off"
         v-model="address"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="number">
+    <el-form-item label="Phone Number">
       <el-input
         type="text"
-        placeholder="enter your telephone number"
+        placeholder="Enter your telephone number"
         autocomplete="off"
         v-model="number"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Username">
+    <el-form-item
+    label="Username"
+    prop="username"
+      :rules="[
+        {
+          required: true,
+          message: 'Username cannot be blank',
+          trigger: 'blur'
+        },
+        {
+          min: 3,
+          message: 'Username must be 3 characters or more',
+          trigger: 'blur'
+        }
+      ]">
       <el-input
         type="text"
-        placeholder="enter a unique username"
+        placeholder="Enter a unique username"
         required
         autocomplete="off"
         v-model="username"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="E-Mail">
+    <el-form-item
+    label="E-Mail"
+    prop="name"
+      :rules="[
+        {
+          required: true,
+          message: 'E-mail cannot be blank',
+          trigger: 'blur'
+        },
+        {
+          min: 3,
+          message: 'E-mail must be 3 characters or more',
+          trigger: 'blur'
+        }
+      ]">
       <el-input
         type="email"
-        placeholder="enter your E-Mail address"
+        placeholder="Enter your E-Mail address"
         required
         autocomplete="off"
         v-model="email"
@@ -51,17 +93,31 @@
     <el-form-item label="Institutional Affilation">
       <el-input
         type="text"
-        placeholder="enter your institutional affilation"
+        placeholder="Enter your institutional affilation"
         required
         autocomplete="off"
         v-model="institutioanalAffilation"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Password">
+    <el-form-item
+    label="Password"
+    prop="password"
+      :rules="[
+        {
+          required: true,
+          message: 'Password cannot be blank',
+          trigger: 'blur'
+        },
+        {
+          min: 6,
+          message: 'Password must be 3 characters or more',
+          trigger: 'blur'
+        }
+      ]">
       <el-input
         type="password"
-        placeholder="enter password"
+        placeholder="Enter password"
         required
         autocomplete="off"
         show-password
@@ -69,10 +125,24 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Confirm Password">
+    <el-form-item
+    label="Confirm Password"
+    prop="confirm password"
+      :rules="[
+        {
+          required: true,
+          message: 'Password cannot be blank',
+          trigger: 'blur'
+        },
+        {
+          min: 6,
+          message: 'Password must be 3 characters or more',
+          trigger: 'blur'
+        }
+      ]">
       <el-input
         type="password"
-        placeholder="re-enter password"
+        placeholder="Re-enter password"
         required
         autocomplete="off"
         show-password
