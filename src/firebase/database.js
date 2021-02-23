@@ -11,9 +11,9 @@ const firebaseConfig = {
     appId: "1:932770559709:web:2e3cc31ef0c4b0ca364d34"
   };
 
-  firebase.default.initializeApp(firebaseConfig);
-  const firebaseAuthentication = firebase.auth();
-  const firebaseFireStore = firebase.firestore();
-  const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+firebase.initializeApp(firebaseConfig);
+const firebaseAuthentication = firebase.auth();
+const firebaseFireStore = firebase.firestore();
+const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
   export { firebaseAuthentication, firebaseFireStore, timestamp };
