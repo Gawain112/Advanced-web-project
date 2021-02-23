@@ -54,6 +54,7 @@ export default {
       hearttype: ref(""),
       value1: ref(""),
       value2: ref(""),
+      csv: ref("")
     }]); 
 
 firebaseAuthentication.onAuthStateChanged((currentUser) => {
@@ -77,7 +78,8 @@ firebaseAuthentication.onAuthStateChanged((currentUser) => {
                 gene: doc.data().gene,
                 hearttype: doc.data().hearttype,
                 value1: doc.data().value1,
-                value2: doc.data().value2
+                value2: doc.data().value2,
+                csv: doc.data().csv
               });
             });
 
@@ -90,13 +92,14 @@ firebaseAuthentication.onAuthStateChanged((currentUser) => {
 
         
 
-    function addNewData(gene, hearttype, value1, value2) {
+    function addNewData(gene, hearttype, value1, value2, csv) {
       const newData = reactive({
         uuid: new Date().getMilliseconds(),
         gene: gene,
         hearttype: hearttype,
         value1: value1,
         value2: value2,
+        csv: csv,
         createdAt: timestamp()
       });
 

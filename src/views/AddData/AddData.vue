@@ -41,6 +41,12 @@
     <el-input v-model="value2"></el-input>
  </el-form-item>
 
+ <el-form-item v-model="csv">
+
+    <input type="file">
+    <progress max="100"></progress>
+</el-form-item>
+
 <el-form-item>
     <el-button type="submit" @click="submitAddedData">Add Data</el-button>
 </el-form-item>
@@ -70,15 +76,16 @@ export default {
       const hearttype = ref("");
       const value1 = ref("");
       const value2 = ref("");
+      const csv = ref("");
 
 
       function submitAddedData() {
-         context.emit("add-data", gene.value, hearttype.value, value1.value, value2.value);
+         context.emit("add-data", gene.value, hearttype.value, value1.value, value2.value, csv.value);
 
 
       }
 
-      return { gene, hearttype, value1, value2, submitAddedData };
+      return { gene, hearttype, value1, value2, csv, submitAddedData };
 
    }
 };
