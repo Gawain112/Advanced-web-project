@@ -1,5 +1,5 @@
 <template>
-  <el-form lable-width="95px" class="demo-ruleForm" @submit.prevent>
+  <el-form class="demo-ruleForm" @submit.prevent>
     <el-form-item
       label="Name"
       prop="name"
@@ -7,37 +7,37 @@
         {
           required: true,
           message: 'Name cannot be blank',
-          trigger: 'blur'
+          trigger: 'blur',
         },
         {
           min: 3,
           message: 'Name must be 3 characters or more',
-          trigger: 'blur'
+          trigger: 'blur',
         }
       ]">
         <el-input
           type="text"
           placeholder="Enter full name"
-          required
-          autocomplete="off"
           v-model="name"
         ></el-input>
     </el-form-item>
 
-    <el-form-item label="Address">
+    <el-form-item
+    label="Address"
+    prop="address">
       <el-input
         type="text"
         placeholder="Enter your address"
-        autocomplete="off"
         v-model="address"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Phone Number">
+    <el-form-item
+    label="Phone Number"
+    prop="number">
       <el-input
-        type="text"
+        type="tel"
         placeholder="Enter your telephone number"
-        autocomplete="off"
         v-model="number"
       ></el-input>
     </el-form-item>
@@ -49,54 +49,56 @@
         {
           required: true,
           message: 'Username cannot be blank',
-          trigger: 'blur'
+          trigger: 'blur',
         },
         {
           min: 3,
           message: 'Username must be 3 characters or more',
-          trigger: 'blur'
+          trigger: 'blur',
         }
       ]">
       <el-input
         type="text"
         placeholder="Enter a unique username"
-        required
-        autocomplete="off"
         v-model="username"
       ></el-input>
     </el-form-item>
 
     <el-form-item
-    label="E-Mail"
-    prop="name"
+    label="Email"
+    prop="email"
       :rules="[
         {
           required: true,
-          message: 'E-mail cannot be blank',
-          trigger: 'blur'
+          message: 'Email cannot be blank',
+          trigger: 'blur',
         },
         {
           min: 3,
-          message: 'E-mail must be 3 characters or more',
-          trigger: 'blur'
+          message: 'Email must be 3 characters or more',
+          trigger: 'blur',
         }
       ]">
       <el-input
         type="email"
-        placeholder="Enter your E-Mail address"
-        required
-        autocomplete="off"
+        placeholder="Enter your Email address"
         v-model="email"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Institutional Affilation">
+    <el-form-item
+    label="Institutional Affilation"
+    prop="institutionalAffilation"
+      :rules="
+        {
+          required: true,
+          message: 'Email cannot be blank',
+          trigger: 'blur',
+        }">
       <el-input
         type="text"
         placeholder="Enter your institutional affilation"
-        required
-        autocomplete="off"
-        v-model="institutioanalAffilation"
+        v-model="institutionalAffilation"
       ></el-input>
     </el-form-item>
 
@@ -107,54 +109,47 @@
         {
           required: true,
           message: 'Password cannot be blank',
-          trigger: 'blur'
+          trigger: 'blur',
         },
         {
           min: 6,
-          message: 'Password must be 3 characters or more',
-          trigger: 'blur'
+          message: 'Password must be 6 characters or more',
+          trigger: 'blur',
         }
       ]">
       <el-input
         type="password"
         placeholder="Enter password"
-        required
-        autocomplete="off"
-        show-password
         v-model="password"
       ></el-input>
     </el-form-item>
 
     <el-form-item
     label="Confirm Password"
-    prop="confirm password"
+    prop="confirmPassword"
       :rules="[
         {
           required: true,
           message: 'Password cannot be blank',
-          trigger: 'blur'
+          trigger: 'blur',
         },
         {
           min: 6,
-          message: 'Password must be 3 characters or more',
-          trigger: 'blur'
+          message: 'Password must be 6 characters or more',
+          trigger: 'blur',
         }
       ]">
       <el-input
         type="password"
-        placeholder="Re-enter password"
-        required
-        autocomplete="off"
+        placeholder="re-enter password"
         show-password
         v-model="confirmPassword"
       ></el-input>
     </el-form-item>
 
-    <div v-if="errorRegistration">
-      <el-button plain type="danger" disabled icon="el-icon-error">
-        {{ errorRegistration }}
-      </el-button>
-    </div>
+    <el-alert v-if="errorRegistration" title="Error" type="error" effect="dark">
+      {{ errorRegistration }}
+    </el-alert>
 
     <el-form-item>
       <el-button style="center" type="success" @click="register"
@@ -179,7 +174,7 @@ export default {
     const number = ref("");
     const username = ref("");
     const email = ref("");
-    const institutioanalAffilation = ref("");
+    const institutionalAffilation = ref("");
     const password = ref("");
     const confirmPassword = ref("");
     const errorRegistration = ref("");
@@ -225,7 +220,7 @@ export default {
       number,
       username,
       email,
-      institutioanalAffilation,
+      institutionalAffilation,
       password,
       confirmPassword,
       register,

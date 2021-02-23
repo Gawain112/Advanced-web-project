@@ -53,11 +53,6 @@ const routes = [
     meta: { title: "Register | Cardiomyopathy" }
   },
   {
-    path: "/register",
-    name: "Register",
-    component: Register
-  },
-  {
     path: "/tests",
     name: "Tests",
     component: firebaseTests,
@@ -72,7 +67,8 @@ const routes = [
   {
     path: "/search",
     name: "Search",
-    component: Search
+    component: Search,
+    meta: { title: "Search | Cardiomyopathy" }
   },
   {
     path: "/:catchAll(.*)",
