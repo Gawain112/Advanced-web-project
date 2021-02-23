@@ -1,25 +1,19 @@
 <template>
-    <appHeader />
-
-    <router-view @loggedIn="logIn" class="col-sm-8 mx-auto" />
-
-    <appFooter />
+  <router-link to="/">Home</router-link> |
+  <router-link to="/about">About</router-link> |
+  <router-link to="/login">Login</router-link> |
+  <router-link to="/register">Register</router-link> |
+  <router-view @loggedIn="logIn" />
 </template>
 
 <script>
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 export default {
   name: "App",
-  components: {
-    'appHeader': Header,
-    'appFooter' : Footer
-  },
   methods: {
     logIn(user) {
       console.log(user);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -30,6 +24,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin-top: 60px;
 }
-
 </style>

@@ -132,7 +132,7 @@ export default {
       const info = {
         email: email.value,
         password: password.value,
-        username: username.value
+        username: username.value,
       };
 
       if (!errorRegistration.value) {
@@ -142,9 +142,9 @@ export default {
             () => {
               router.replace("register");
             },
-            (error) => {
+            error => {
               errorRegistration.value = error.message;
-            }
+            },
           );
       }
     }
@@ -159,8 +159,8 @@ export default {
       password,
       confirmPassword,
       register,
-      errorRegistration
+      errorRegistration,
     };
-  }
+  },
 };
 </script>
