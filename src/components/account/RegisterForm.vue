@@ -89,7 +89,7 @@
           trigger: 'blur',
         }">
       <el-input
-        v-model="institutioanalAffilation"
+        v-model="institutionalAffilation"
         type="text"
         placeholder="enter your institutional affilation"
         required
@@ -201,7 +201,7 @@ export default {
         number: number.value,
         username: username.value,
         email: email.value,
-        institutioanalAffilation: institutioanalAffilation.value,
+        institutionalAffilation: institutionalAffilation.value,
         password: password.value,
       };
 
