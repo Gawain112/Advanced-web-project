@@ -154,6 +154,24 @@ export default {
   name: "RegisterForm",
   emits: ["register-clicked"],
 
+  setup() {
+    const password = "";
+    const confirmPassword = "";
+    const errorRegistration = "";
+
+    watch(confirmPassword, () => {
+      if (
+        password.value !== "" &&
+        confirmPassword.value !== "" &&
+        password.value !== confirmPassword.value
+      ) {
+        errorRegistration.value = "Passwords do not match!";
+      } else {
+        errorRegistration.value = null;
+      }
+    });
+  },
+
   data() {
     return {
       registrationModel: ref({ 
@@ -163,8 +181,8 @@ export default {
         username: "", 
         email: "", 
         institutionalAffilation: "", 
-        password: this.password, 
-        confirmPassword: this.confirmPassword
+        password: "", 
+        confirmPassword: ""
       }),
       errorRegistration: ref(""),
     };
@@ -216,20 +234,6 @@ export default {
           this.errorRegistration.value = err.message;
         }
       };
-    },
-
-    confirmPass () {
-    watch(this.confirmPassword, () => {
-      if (
-        this.password !== "" &&
-        this.confirmPassword !== "" &&
-        this.password !== this.confirmPassword.value
-      ) {
-        this.errorRegistration = "Passwords do not match!";
-      } else {
-        this.errorRegistration = null;
-      }
-    });
     },
   },
 };
