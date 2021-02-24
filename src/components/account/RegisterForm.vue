@@ -51,7 +51,6 @@
         v-model="username"
         type="text"
         placeholder="enter a unique username"
-        required
         autocomplete="off"
       ></el-input>
     </el-form-item>

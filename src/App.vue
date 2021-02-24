@@ -1,6 +1,6 @@
 <template>
   <Header></Header>
-  <router-view @loggedIn="logIn" />
+  <router-view @loggedIn="logIn" class="col-sm-8 mx-auto" />
   <Footer></Footer>
 </template>
 
