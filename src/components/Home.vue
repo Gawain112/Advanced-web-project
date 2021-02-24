@@ -2,25 +2,24 @@
   <div class="Home">
     <h1>{{ msg }}</h1>
     <p>
-      For more information about Cardiomyopathy, we recommend checking out these sites:
+      For more information about Cardiomyopathy, we recommend checking out these
+      sites:
     </p>
-      <ul>
-        <li>
-          <a
-            href="https://www.nhs.uk/conditions/cardiomyopathy/"
-            target="_blank"
-            rel="noopener">NHS
-            </a>
-        </li>
-        <li>
-          <a
-            href="https://www.cardiomyopathy.org/"
-            target="_blank"
-            rel="noopener"
-            >Cardiomyopathy UK - The Heart Muscle Charity</a
-          >
-        </li>
-      </ul>
+    <ul>
+      <li>
+        <a
+          href="https://www.nhs.uk/conditions/cardiomyopathy/"
+          target="_blank"
+          rel="noopener"
+          >NHS
+        </a>
+      </li>
+      <li>
+        <a href="https://www.cardiomyopathy.org/" target="_blank" rel="noopener"
+          >Cardiomyopathy UK - The Heart Muscle Charity</a
+        >
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -28,8 +27,8 @@
 export default {
   name: "Home",
   props: {
-    msg: String
-  }
+    msg: String,
+  },
 };
 </script>
 
