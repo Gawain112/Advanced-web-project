@@ -1,7 +1,7 @@
 <template>
   <el-card class="mt-2">
     <template #header>
-      <h1>{{ toSearch }}</h1>
+      <h2>{{ toSearch }}</h2>
     </template>
     <div v-if="error">
       {{ error }}
@@ -24,14 +24,14 @@
 <script>
 import { ref } from "vue";
 export default {
+  name: "SynopsisSearch",
   props: {
     toSearch: {
       name: "Search Phrase",
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  name: "Synopsis Search",
   setup(props) {
     const geneInfo = ref({});
     geneInfo.value.synopsis = {};
@@ -56,6 +56,6 @@ export default {
       });
 
     return { geneInfo };
-  }
+  },
 };
 </script>
