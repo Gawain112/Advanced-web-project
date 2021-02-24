@@ -15,7 +15,7 @@
 import RegisterForm from "@/components/account/RegisterForm.vue";
 
 export default {
-  components: { RegisterForm }
+  components: { RegisterForm },
 };
 </script>
 
