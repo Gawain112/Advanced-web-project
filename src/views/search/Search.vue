@@ -1,6 +1,11 @@
 <template>
   <el-main>
-    <el-card class="box-card"><h1>Search</h1>
+    <el-card class="box-card">
+      <template #header>
+        <div class="card-header border-bottom">
+          <h1 class="display-1">Search</h1>
+        </div>
+      </template>
     <el-row>
       <el-col :span="20">
         <el-input v-model="search" placeholder="Type here to Search" @input="submitPressed = false"></el-input>
