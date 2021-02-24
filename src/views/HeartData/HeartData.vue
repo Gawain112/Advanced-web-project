@@ -29,24 +29,25 @@
 </template>
 
 <script>
+import { firebaseFireStore } from "@/firebase/database";
+
 export default {
   name: "HeartData",
-
-  props: {
-    data: {
-      type: Array,
-      default: () => [],
-    },
-    addedInfo: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  emits: ["delete-data"],
-
-  setup(props, context) {
+  setup(props) {
     function deleteSubmittedData() {
-      context.emit("delete-data", props.data.uuid);
+      let uuid = "test";
+
+      firebaseFireStore
+        .collection("users")
+        .doc(props.user.value.uid)
+        .collection("dataAdded")
+        .where("uuid", "==", uuid)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            doc.ref.delete();
+          });
+        });
     }
 
     return { deleteSubmittedData };

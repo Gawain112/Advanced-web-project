@@ -31,8 +31,7 @@
     <el-form-item
       label="Password"
       prop="password"
-      :rules="
-      {
+      :rules="{
         required: true,
         message: 'Password cannot be blank',
         trigger: 'blur',
@@ -53,17 +52,16 @@
         >Login</el-button
       >
     </el-form-item>
-    
+
     <el-alert v-if="errorMsg" title="Error" type="error" effect="dark">
       {{ errorMsg }}
     </el-alert>
-    
   </el-form>
 </template>
 
 <script>
 import { ref } from "vue";
-import { firebaseAuthenticationService } from "@/firebase/database";
+import { firebaseAuthentication } from "@/firebase/database";
 
 export default {
   name: "LoginForm",
@@ -99,7 +97,7 @@ export default {
       let password = this.loginModel.password;
       let username = this.loginModel.username;
 
-      firebaseAuthenticationService
+      firebaseAuthentication
         .signInWithEmailAndPassword(username, password)
         .then(
           () => {
