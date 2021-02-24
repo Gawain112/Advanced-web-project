@@ -139,6 +139,7 @@ export default {
         username: username.value,
         email: email.value,
         institutioanalAffilation: institutioanalAffilation.value,
+        password: password.value,
       };
 
       console.log(router);
