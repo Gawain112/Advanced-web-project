@@ -7,7 +7,7 @@
         </div>
       </template>
       <div>
-        <LoginForm size="medium" v-on:loggedIn="logIn" />
+        <LoginForm size="medium" @loggedIn="logIn" />
       </div>
     </el-card>
   </el-main>

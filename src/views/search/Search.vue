@@ -6,10 +6,10 @@
         ><label for="cardiomyopathyTypeInput">Type to search: </label></el-col
       >
       <el-col :span="16">
-        <el-input @input="submitPressed = false" v-model="search"></el-input>
+        <el-input v-model="search" @input="submitPressed = false"></el-input>
       </el-col>
       <el-col :span="4">
-        <el-select @change="submitPressed = false" v-model="selectedSearchType">
+        <el-select v-model="selectedSearchType" @change="submitPressed = false">
           <el-option default value="genes">Genes</el-option>
           <el-option value="synopsis">Clinical Synopsis</el-option>
           <el-option value="phenotype">Phenotype</el-option>
@@ -20,9 +20,9 @@
     <el-row>
       <el-col :span="24" class="mt-2"
         ><el-button
+          id="search-button"
           @click="submitPressed = true"
           @keyup.enter="submitPressed = true"
-          id="search-button"
           >Search</el-button
         ></el-col
       >
@@ -30,10 +30,10 @@
 
     <div v-if="submitPressed">
       <div v-if="selectedSearchType == 'synopsis'">
-        <SearchSynopsis v-bind:toSearch="search" />
+        <SearchSynopsis :to-search="search" />
       </div>
       <div v-if="selectedSearchType == 'genes'">
-        <SearchGene v-bind:geneSymbol="search" />
+        <SearchGene :gene-symbol="search" />
       </div>
     </div>
   </el-main>
@@ -55,8 +55,8 @@ export default {
     return {
       selectedSearchType,
       submitPressed,
-      search
+      search,
     };
-  }
+  },
 };
 </script>

@@ -1,10 +1,10 @@
 <template>
   <el-form
+    ref="loginModel"
     label-position="left"
     label-width="6rem"
     :model="loginModel"
     :size="size"
-    ref="loginModel"
   >
     <el-form-item
       label="Username"
@@ -13,13 +13,13 @@
         {
           required: true,
           message: 'Username cannot be blank',
-          trigger: 'blur'
+          trigger: 'blur',
         },
         {
           min: 3,
           message: 'Username must be 3 characters or more',
-          trigger: 'blur'
-        }
+          trigger: 'blur',
+        },
       ]"
     >
       <el-input
@@ -33,7 +33,7 @@
       :rules="{
         required: true,
         message: 'Password cannot be blank',
-        trigger: 'blur'
+        trigger: 'blur',
       }"
     >
       <el-input
@@ -67,15 +67,15 @@ export default {
       name: "size",
       type: String,
       required: false,
-      default: "large"
-    }
+      default: "large",
+    },
   },
   emits: ["loggedIn"],
   data() {
     return {
       loginModel: ref({ username: "", password: "" }),
       loginAttempts: 0,
-      errorMsg: ref("")
+      errorMsg: ref(""),
     };
   },
   methods: {
@@ -107,12 +107,12 @@ export default {
             }
             context.loginAttempts++;
             context.updateErrorMessage(error.message);
-          }
+          },
         );
     },
     updateErrorMessage(withMessage) {
       this.errorMsg = withMessage;
-    }
-  }
+    },
+  },
 };
 </script>

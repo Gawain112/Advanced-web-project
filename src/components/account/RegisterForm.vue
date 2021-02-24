@@ -2,81 +2,81 @@
   <el-form lable-width="95px" class="demo-ruleForm" @submit.prevent>
     <el-form-item label="Name">
       <el-input
+        v-model="name"
         type="text"
         placeholder="enter full name"
         required
         autocomplete="off"
-        v-model="name"
       ></el-input>
     </el-form-item>
 
     <el-form-item label="Address">
       <el-input
+        v-model="address"
         type="text"
         placeholder="enter your address"
         autocomplete="off"
-        v-model="address"
       ></el-input>
     </el-form-item>
 
     <el-form-item label="number">
       <el-input
+        v-model="number"
         type="text"
         placeholder="enter your telephone number"
         autocomplete="off"
-        v-model="number"
       ></el-input>
     </el-form-item>
 
     <el-form-item label="Username">
       <el-input
+        v-model="username"
         type="text"
         placeholder="enter a unique username"
         required
         autocomplete="off"
-        v-model="username"
       ></el-input>
     </el-form-item>
 
     <el-form-item label="E-Mail">
       <el-input
+        v-model="email"
         type="email"
         placeholder="enter your E-Mail address"
         required
         autocomplete="off"
-        v-model="email"
       ></el-input>
     </el-form-item>
 
     <el-form-item label="Institutional Affilation">
       <el-input
+        v-model="institutioanalAffilation"
         type="text"
         placeholder="enter your institutional affilation"
         required
         autocomplete="off"
-        v-model="institutioanalAffilation"
       ></el-input>
     </el-form-item>
 
     <el-form-item label="Password">
       <el-input
+        v-model="password"
         type="password"
         placeholder="enter password"
         required
         autocomplete="off"
         show-password
-        v-model="password"
       ></el-input>
     </el-form-item>
 
     <el-form-item label="Confirm Password">
       <el-input
+        v-model="confirmPassword"
         type="password"
         placeholder="re-enter password"
         required
         autocomplete="off"
         show-password
-        v-model="confirmPassword"
       ></el-input>
     </el-form-item>
 
@@ -132,7 +132,7 @@ export default {
       const info = {
         email: email.value,
         password: password.value,
-        username: username.value
+        username: username.value,
       };
 
       if (!errorRegistration.value) {
@@ -142,9 +142,9 @@ export default {
             () => {
               router.replace("register");
             },
-            (error) => {
+            error => {
               errorRegistration.value = error.message;
-            }
+            },
           );
       }
     }
@@ -159,8 +159,8 @@ export default {
       password,
       confirmPassword,
       register,
-      errorRegistration
+      errorRegistration,
     };
-  }
+  },
 };
 </script>
