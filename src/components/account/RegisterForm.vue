@@ -160,10 +160,7 @@
 <script>
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import {
-  firebaseAuthenticationService,
-  firebaseFireStore,
-} from "@/firebase/database";
+import { firebaseAuthentication, firebaseFireStore } from "@/firebase/database";
 
 export default {
   name: "RegisterForm",
@@ -208,7 +205,7 @@ export default {
       console.log(router);
 
       try {
-        const res = await firebaseAuthenticationService.createUserWithEmailAndPassword(
+        const res = await firebaseAuthentication.createUserWithEmailAndPassword(
           info.email,
           info.password,
         );

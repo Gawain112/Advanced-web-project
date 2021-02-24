@@ -32,6 +32,16 @@
           >Register</router-link
         >
       </li>
+      <li class="nav-item">
+        <router-link :to="{ name: 'AddData' }" class="nav-link"
+          >Add Data</router-link
+        >
+      </li>
+      <li class="nav-item">
+        <router-link :to="{ name: 'HeartData' }" class="nav-link"
+          >Heart Data</router-link
+        >
+      </li>
     </ul>
   </nav>
 </template>

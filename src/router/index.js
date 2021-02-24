@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import AddData from "@/views/AddData/AddData.vue";
+import HeartData from "@/views/HeartData/HeartData.vue";
 import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
 import Analysis from "@/views/Analysis.vue";
@@ -31,8 +33,29 @@ const routes = [
   {
     path: "/about",
     name: "About",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
     component: About,
     meta: { title: "About | Cardiomyopathy" },
+  },
+  {
+    path: "/adddata",
+    name: "AddData",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: AddData,
+    meta: { title: "AddData | Cardiomyopathy" }
+  },
+  {
+    path: "/heartdata",
+    name: "HeartData",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: HeartData,
+    meta: { title: "HeartData | Cardiomyopathy" }
   },
   {
     path: "/analysis",
