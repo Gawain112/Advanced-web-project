@@ -27,16 +27,19 @@
         placeholder="Input Username"
       ></el-input>
     </el-form-item>
+
     <el-form-item
       label="Password"
       prop="password"
-      :rules="{
+      :rules="
+      {
         required: true,
         message: 'Password cannot be blank',
         trigger: 'blur',
       }"
     >
       <el-input
+        type="password"
         v-model="loginModel.password"
         placeholder="Input Password"
         show-password
@@ -50,9 +53,11 @@
         >Login</el-button
       >
     </el-form-item>
+    
     <el-alert v-if="errorMsg" title="Error" type="error" effect="dark">
       {{ errorMsg }}
     </el-alert>
+    
   </el-form>
 </template>
 

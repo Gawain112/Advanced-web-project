@@ -2,7 +2,7 @@
   <el-main>
     <el-card>
       <template #header>
-        <h1>{{ geneSymbol }}</h1>
+        <h2>{{ geneSymbol }}</h2>
       </template>
       <div v-if="error">
         <el-row>{{ error }}</el-row>

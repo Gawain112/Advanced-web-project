@@ -10,7 +10,9 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Address">
+    <el-form-item
+    label="Address"
+    prop="address">
       <el-input
         v-model="address"
         type="text"
@@ -19,7 +21,9 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="number">
+    <el-form-item
+    label="Phone Number"
+    prop="number">
       <el-input
         v-model="number"
         type="text"
@@ -28,17 +32,44 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Username">
+    <el-form-item
+    label="Username"
+    prop="username"
+      :rules="[
+        {
+          required: true,
+          message: 'Username cannot be blank',
+          trigger: 'blur',
+        },
+        {
+          min: 3,
+          message: 'Username must be 3 characters or more',
+          trigger: 'blur',
+        }
+      ]">
       <el-input
         v-model="username"
         type="text"
         placeholder="enter a unique username"
-        required
         autocomplete="off"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="E-Mail">
+    <el-form-item
+    label="Email"
+    prop="email"
+      :rules="[
+        {
+          required: true,
+          message: 'Email cannot be blank',
+          trigger: 'blur',
+        },
+        {
+          min: 3,
+          message: 'Email must be 3 characters or more',
+          trigger: 'blur',
+        }
+      ]">
       <el-input
         v-model="email"
         type="email"
@@ -48,9 +79,17 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Institutional Affilation">
+    <el-form-item
+    label="Institutional Affilation"
+    prop="institutionalAffilation"
+      :rules="
+        {
+          required: true,
+          message: 'Email cannot be blank',
+          trigger: 'blur',
+        }">
       <el-input
-        v-model="institutioanalAffilation"
+        v-model="institutionalAffilation"
         type="text"
         placeholder="enter your institutional affilation"
         required
@@ -58,7 +97,21 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Password">
+    <el-form-item
+    label="Password"
+    prop="password"
+      :rules="[
+        {
+          required: true,
+          message: 'Password cannot be blank',
+          trigger: 'blur',
+        },
+        {
+          min: 6,
+          message: 'Password must be 6 characters or more',
+          trigger: 'blur',
+        }
+      ]">
       <el-input
         v-model="password"
         type="password"
@@ -69,22 +122,32 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Confirm Password">
+    <el-form-item
+    label="Confirm Password"
+    prop="confirmPassword"
+      :rules="[
+        {
+          required: true,
+          message: 'Password cannot be blank',
+          trigger: 'blur',
+        },
+        {
+          min: 6,
+          message: 'Password must be 6 characters or more',
+          trigger: 'blur',
+        }
+      ]">
       <el-input
         v-model="confirmPassword"
         type="password"
         placeholder="re-enter password"
-        required
-        autocomplete="off"
         show-password
       ></el-input>
     </el-form-item>
 
-    <div v-if="errorRegistration">
-      <el-button plain type="danger" disabled icon="el-icon-error">
-        {{ errorRegistration }}
-      </el-button>
-    </div>
+    <el-alert v-if="errorRegistration" title="Error" type="error" effect="dark">
+      {{ errorRegistration }}
+    </el-alert>
 
     <el-form-item>
       <el-button style="center" type="success" @click="register"
@@ -109,7 +172,7 @@ export default {
     const number = ref("");
     const username = ref("");
     const email = ref("");
-    const institutioanalAffilation = ref("");
+    const institutionalAffilation = ref("");
     const password = ref("");
     const confirmPassword = ref("");
     const errorRegistration = ref("");
@@ -135,7 +198,7 @@ export default {
         number: number.value,
         username: username.value,
         email: email.value,
-        institutioanalAffilation: institutioanalAffilation.value,
+        institutionalAffilation: institutionalAffilation.value,
         password: password.value,
       };
 
@@ -167,7 +230,7 @@ export default {
       number,
       username,
       email,
-      institutioanalAffilation,
+      institutionalAffilation,
       password,
       confirmPassword,
       register,

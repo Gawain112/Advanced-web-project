@@ -1,7 +1,7 @@
 <template>
   <el-card class="mt-2">
     <template #header>
-      <h1>{{ toSearch }}</h1>
+      <h2>{{ toSearch }}</h2>
     </template>
     <div v-if="error">
       {{ error }}

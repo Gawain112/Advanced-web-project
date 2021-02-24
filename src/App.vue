@@ -1,13 +1,18 @@
 <template>
-  <appHeader />
+  <Header></Header>
 
+  <img
+    alt="Cardiomyopathy Banner"
+    src="./assets/cm_banner.png"
+    class="col-sm-8 mx-auto"
+  />
   <router-view
     :data="data"
     :user="user"
-    @loggedIn="logIn"
+    class="col-sm-8 mx-auto"
     @add-data="addNewData"
+    @loggedIn="logIn"
   />
-
   <heart-data
     v-for="data in data"
     :key="data.uuid"
@@ -15,10 +20,6 @@
     @delete-data="deleteData"
   >
   </heart-data>
-
-  <appFooter />
-  <Header></Header>
-
   <Footer></Footer>
 </template>
 
@@ -35,7 +36,7 @@ import {
 
 export default {
   name: "App",
-  components: { heartData, appHeader: Header, appFooter: Footer },
+  components: { heartData, Header, Footer },
 
   setup() {
     const user = ref(null);
