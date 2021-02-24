@@ -24,10 +24,10 @@
           <el-col :span="20">
             <ol>
               <li
-                class="text-secondary"
                 v-for="disease in geneInfo.geneMapList[0].geneMap
                   .phenotypeMapList"
                 :key="disease"
+                class="text-secondary"
               >
                 {{ disease.phenotypeMap.phenotype }}
               </li>
@@ -53,13 +53,13 @@
 import { ref } from "vue";
 
 export default {
-  name: "Gene Additional Information",
+  name: "GeneAdditionalInformation",
   props: {
     geneSymbol: {
       name: "Gene Symbol",
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     const geneInfo = ref({});
@@ -72,8 +72,8 @@ export default {
     window
       .fetch(geneInfoUrl, {
         headers: {
-          Accept: "application/json"
-        }
+          Accept: "application/json",
+        },
       })
       .then(async res => {
         return res.json();
@@ -87,7 +87,7 @@ export default {
       });
 
     return { geneInfo, error };
-  }
+  },
 };
 </script>
 

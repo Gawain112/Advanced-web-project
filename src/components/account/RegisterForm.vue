@@ -1,34 +1,23 @@
 <template>
-  <el-form class="demo-ruleForm" @submit.prevent>
-    <el-form-item
-      label="Name"
-      prop="name"
-      :rules="[
-        {
-          required: true,
-          message: 'Name cannot be blank',
-          trigger: 'blur',
-        },
-        {
-          min: 3,
-          message: 'Name must be 3 characters or more',
-          trigger: 'blur',
-        }
-      ]">
-        <el-input
-          type="text"
-          placeholder="Enter full name"
-          v-model="name"
-        ></el-input>
+  <el-form lable-width="95px" class="demo-ruleForm" @submit.prevent>
+    <el-form-item label="Name">
+      <el-input
+        v-model="name"
+        type="text"
+        placeholder="enter full name"
+        required
+        autocomplete="off"
+      ></el-input>
     </el-form-item>
 
     <el-form-item
     label="Address"
     prop="address">
       <el-input
-        type="text"
-        placeholder="Enter your address"
         v-model="address"
+        type="text"
+        placeholder="enter your address"
+        autocomplete="off"
       ></el-input>
     </el-form-item>
 
@@ -36,9 +25,10 @@
     label="Phone Number"
     prop="number">
       <el-input
-        type="tel"
-        placeholder="Enter your telephone number"
         v-model="number"
+        type="text"
+        placeholder="enter your telephone number"
+        autocomplete="off"
       ></el-input>
     </el-form-item>
 
@@ -58,9 +48,11 @@
         }
       ]">
       <el-input
-        type="text"
-        placeholder="Enter a unique username"
         v-model="username"
+        type="text"
+        placeholder="enter a unique username"
+        required
+        autocomplete="off"
       ></el-input>
     </el-form-item>
 
@@ -80,9 +72,11 @@
         }
       ]">
       <el-input
-        type="email"
-        placeholder="Enter your Email address"
         v-model="email"
+        type="email"
+        placeholder="enter your E-Mail address"
+        required
+        autocomplete="off"
       ></el-input>
     </el-form-item>
 
@@ -96,9 +90,11 @@
           trigger: 'blur',
         }">
       <el-input
+        v-model="institutioanalAffilation"
         type="text"
-        placeholder="Enter your institutional affilation"
-        v-model="institutionalAffilation"
+        placeholder="enter your institutional affilation"
+        required
+        autocomplete="off"
       ></el-input>
     </el-form-item>
 
@@ -118,9 +114,12 @@
         }
       ]">
       <el-input
-        type="password"
-        placeholder="Enter password"
         v-model="password"
+        type="password"
+        placeholder="enter password"
+        required
+        autocomplete="off"
+        show-password
       ></el-input>
     </el-form-item>
 
@@ -140,10 +139,10 @@
         }
       ]">
       <el-input
+        v-model="confirmPassword"
         type="password"
         placeholder="re-enter password"
         show-password
-        v-model="confirmPassword"
       ></el-input>
     </el-form-item>
 
@@ -197,7 +196,7 @@ export default {
       const info = {
         email: email.value,
         password: password.value,
-        username: username.value
+        username: username.value,
       };
 
       if (!errorRegistration.value) {
@@ -207,9 +206,9 @@ export default {
             () => {
               router.replace("register");
             },
-            (error) => {
+            error => {
               errorRegistration.value = error.message;
-            }
+            },
           );
       }
     }
@@ -224,8 +223,8 @@ export default {
       password,
       confirmPassword,
       register,
-      errorRegistration
+      errorRegistration,
     };
-  }
+  },
 };
 </script>
