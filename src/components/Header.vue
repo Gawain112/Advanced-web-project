@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <ul class="nav navbar-nav mr-auto">

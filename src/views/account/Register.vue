@@ -1,13 +1,15 @@
 <template>
   <el-main>
-    <div class="card">
-      <div class="card-title border-bottom">
-        <h1 class="display-1">Register</h1>
-      </div>
+    <el-card class="box-card">
+      <template #header>
+        <div class="card-header border-bottom">
+          <h1 class="display-1">Register</h1>
+        </div>
+      </template>
       <div class="card-body">
         <RegisterForm size="medium" />
       </div>
-    </div>
+    </el-card>
   </el-main>
 </template>
 

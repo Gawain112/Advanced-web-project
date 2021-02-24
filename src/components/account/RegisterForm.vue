@@ -1,6 +1,6 @@
 <template>
   <el-form lable-width="95px" class="demo-ruleForm" @submit.prevent>
-    <el-form-item label="Name">
+    <el-form-item label="Name" :rules="{ required: true }">
       <el-input
         v-model="name"
         type="text"
@@ -28,7 +28,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Username">
+    <el-form-item label="Username" :rules="{ required: true }">
       <el-input
         v-model="username"
         type="text"
@@ -38,7 +38,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="E-Mail">
+    <el-form-item label="E-Mail" :rules="{ required: true }">
       <el-input
         v-model="email"
         type="email"
@@ -48,7 +48,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Institutional Affilation">
+    <el-form-item label="Institutional Affilation" :rules="{ required: true }">
       <el-input
         v-model="institutioanalAffilation"
         type="text"
@@ -58,7 +58,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Password">
+    <el-form-item label="Password" :rules="{ required: true }">
       <el-input
         v-model="password"
         type="password"
@@ -69,7 +69,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Confirm Password">
+    <el-form-item label="Confirm Password" :rules="{ required: true }">
       <el-input
         v-model="confirmPassword"
         type="password"
