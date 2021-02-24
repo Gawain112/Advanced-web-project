@@ -138,7 +138,7 @@
     </el-alert>
 
     <el-form-item>
-      <el-button style="center" type="success" @click="registrationModel"
+      <el-button style="center" type="success" @click="validateRegistration('registrationModel')"
         >Register
       </el-button>
     </el-form-item>
