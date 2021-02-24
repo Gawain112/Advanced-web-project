@@ -8,6 +8,7 @@ import Login from "@/views/account/Login.vue";
 import Register from "@/views/account/Register.vue";
 import NotFound from "@/views/NotFound.vue";
 import Graph from "@/views/Graph.vue";
+import Search from "@/views/search/Search.vue";
 
 const routes = [
   {
@@ -76,6 +77,12 @@ const routes = [
     name: "Graph",
     meta: { title: "Graph | Cardiomyopathy" },
     component: Graph,
+  },
+  {
+    path: "/search",
+    name: "Search",
+    meta: { title: "Search | Cardiomyopathy" },
+    component: Search,
   },
 ];
 

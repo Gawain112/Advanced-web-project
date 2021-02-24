@@ -1,25 +1,25 @@
 <template>
-    <appHeader />
+  <appHeader />
 
-    <router-view @loggedIn="logIn" class="col-sm-8 mx-auto" />
+  <router-view @loggedIn="logIn" class="col-sm-8 mx-auto" />
 
-    <appFooter />
+  <appFooter />
 </template>
 
 <script>
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 export default {
   name: "App",
   components: {
-    'appHeader': Header,
-    'appFooter' : Footer
+    appHeader: Header,
+    appFooter: Footer,
   },
   methods: {
     logIn(user) {
       console.log(user);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -31,5 +31,4 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 </style>
