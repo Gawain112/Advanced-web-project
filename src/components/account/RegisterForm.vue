@@ -1,6 +1,6 @@
 <template>
   <el-form lable-width="95px" class="demo-ruleForm" @submit.prevent>
-    <el-form-item label="Name">
+    <el-form-item label="Name" :rules="{ required: true }">
       <el-input
         v-model="name"
         type="text"
@@ -32,21 +32,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item
-    label="Username"
-    prop="username"
-      :rules="[
-        {
-          required: true,
-          message: 'Username cannot be blank',
-          trigger: 'blur',
-        },
-        {
-          min: 3,
-          message: 'Username must be 3 characters or more',
-          trigger: 'blur',
-        }
-      ]">
+    <el-form-item label="Username" :rules="{ required: true }">
       <el-input
         v-model="username"
         type="text"
@@ -55,21 +41,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item
-    label="Email"
-    prop="email"
-      :rules="[
-        {
-          required: true,
-          message: 'Email cannot be blank',
-          trigger: 'blur',
-        },
-        {
-          min: 3,
-          message: 'Email must be 3 characters or more',
-          trigger: 'blur',
-        }
-      ]">
+    <el-form-item label="E-Mail" :rules="{ required: true }">
       <el-input
         v-model="email"
         type="email"
@@ -79,15 +51,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item
-    label="Institutional Affilation"
-    prop="institutionalAffilation"
-      :rules="
-        {
-          required: true,
-          message: 'Email cannot be blank',
-          trigger: 'blur',
-        }">
+    <el-form-item label="Institutional Affilation" :rules="{ required: true }">
       <el-input
         v-model="institutionalAffilation"
         type="text"
@@ -97,21 +61,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item
-    label="Password"
-    prop="password"
-      :rules="[
-        {
-          required: true,
-          message: 'Password cannot be blank',
-          trigger: 'blur',
-        },
-        {
-          min: 6,
-          message: 'Password must be 6 characters or more',
-          trigger: 'blur',
-        }
-      ]">
+    <el-form-item label="Password" :rules="{ required: true }">
       <el-input
         v-model="password"
         type="password"
@@ -122,21 +72,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item
-    label="Confirm Password"
-    prop="confirmPassword"
-      :rules="[
-        {
-          required: true,
-          message: 'Password cannot be blank',
-          trigger: 'blur',
-        },
-        {
-          min: 6,
-          message: 'Password must be 6 characters or more',
-          trigger: 'blur',
-        }
-      ]">
+    <el-form-item label="Confirm Password" :rules="{ required: true }">
       <el-input
         v-model="confirmPassword"
         type="password"

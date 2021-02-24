@@ -6,7 +6,7 @@
           <h1 class="display-1">Register</h1>
         </div>
       </template>
-      <div>
+      <div class="card-body">
         <RegisterForm size="medium" />
       </div>
     </el-card>
