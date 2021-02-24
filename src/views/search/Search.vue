@@ -1,12 +1,9 @@
 <template>
   <el-main>
-    <el-row><h1>Search</h1></el-row>
+    <el-card class="box-card"><h1>Search</h1>
     <el-row>
-      <el-col :span="4"
-        ><label for="cardiomyopathyTypeInput">Type to search: </label></el-col
-      >
-      <el-col :span="16">
-        <el-input v-model="search" @input="submitPressed = false"></el-input>
+      <el-col :span="20">
+        <el-input v-model="search" placeholder="Type here to Search" @input="submitPressed = false"></el-input>
       </el-col>
       <el-col :span="4">
         <el-select v-model="selectedSearchType" @change="submitPressed = false">
@@ -36,6 +33,10 @@
         <SearchGene :gene-symbol="search" />
       </div>
     </div>
+    <div v-else>
+      <h2 class="mt-5">Search results will appear here</h2>
+    </div>
+    </el-card>
   </el-main>
 </template>
 
