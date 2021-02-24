@@ -160,7 +160,10 @@
 <script>
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { firebaseAuthenticationService } from "@/firebase/database";
+import {
+  firebaseAuthenticationService,
+  firebaseFireStore,
+} from "@/firebase/database";
 
 export default {
   name: "RegisterForm",
@@ -191,26 +194,38 @@ export default {
 
     const router = useRouter();
 
-    function register() {
+    const register = async () => {
       const info = {
-        email: email.value,
-        password: password.value,
+        name: name.value,
+        address: address.value,
+        number: number.value,
         username: username.value,
+        email: email.value,
+        institutioanalAffilation: institutioanalAffilation.value,
+        password: password.value,
       };
 
-      if (!errorRegistration.value) {
-        firebaseAuthenticationService
-          .createUserWithEmailAndPassword(info.email, info.password)
-          .then(
-            () => {
-              router.replace("register");
-            },
-            error => {
-              errorRegistration.value = error.message;
-            },
-          );
+      console.log(router);
+
+      try {
+        const res = await firebaseAuthenticationService.createUserWithEmailAndPassword(
+          info.email,
+          info.password,
+        );
+
+        await res.user.sendEmailVerification();
+
+        await firebaseFireStore
+          .collection("users")
+          .doc(`${res.user.uid}`)
+          .set(info);
+
+        router.push({ name: "Login" });
+      } catch (err) {
+        console.log(err);
+        errorRegistration.value = err.message;
       }
-    }
+    };
 
     return {
       name,
