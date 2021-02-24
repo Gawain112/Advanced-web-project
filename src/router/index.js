@@ -68,6 +68,7 @@ const routes = [
     path: "/search",
     name: "Search",
     component: Search,
+    meta: { title: "Search | Cardiomyopathy" }
   },
   {
     path: "/:catchAll(.*)",
