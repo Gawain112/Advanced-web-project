@@ -8,12 +8,13 @@
 export default {
   name: "NotFound",
   props: {
-    msg: String
-  }
+    msg: {
+      type: String,
+      default: "Page does not exist!",
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>
+<style scoped></style>

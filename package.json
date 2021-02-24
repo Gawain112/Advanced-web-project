@@ -14,6 +14,7 @@
     "element-plus": "^1.0.2-beta.31",
     "firebase": "^8.2.9",
     "firebase-tools": "^9.3.0",
+    "node-fetch": "^2.6.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
   },
@@ -50,7 +51,8 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/vue3-essential",
+      "plugin:vue/vue3-recommended",
+      "plugin:prettier/recommended",
       "eslint:recommended",
       "@vue/prettier",
       "plugin:jest/recommended"

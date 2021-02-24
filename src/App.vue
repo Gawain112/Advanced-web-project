@@ -1,96 +1,84 @@
 <template>
-
   <appHeader />
 
   <router-view
-  :data="data" 
-  :user="user"
-  @loggedIn="logIn"
-  @add-data="addNewData"
+    :data="data"
+    :user="user"
+    @loggedIn="logIn"
+    @add-data="addNewData"
   />
 
-  <heart-data 
-  v-for="data in data"
-  :key="data.uuid"
-  :data="data"
-  @delete-data="deleteData">
+  <heart-data
+    v-for="data in data"
+    :key="data.uuid"
+    :data="data"
+    @delete-data="deleteData"
+  >
   </heart-data>
 
-  <!-- <router-view 
-  v-for="data in data"
-  :key="data.uuid"
-  :data="data"
-  @add-data="addNewData"
-  @delete-data="deleteData"/> -->
+  <appFooter />
+  <Header></Header>
 
-    <appFooter />
+  <Footer></Footer>
 </template>
-
 
 <script>
 import { ref, reactive } from "vue";
 import heartData from "./views/HeartData/HeartData.vue";
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { firebaseFireStore, firebaseAuthentication, timestamp } from "./firebase/database.js";
- 
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import {
+  firebaseFireStore,
+  firebaseAuthentication,
+  timestamp,
+} from "./firebase/database.js";
+
 export default {
   name: "App",
-  components: { heartData,
-    'appHeader': Header,
-    'appFooter' : Footer
-  },
-  methods: {
-    logIn(user) {
-      console.log(user);
-    }
-  },
+  components: { heartData, appHeader: Header, appFooter: Footer },
 
   setup() {
     const user = ref(null);
-    const data = reactive([{
-      uuid: ref(""),
-      gene: ref(""),
-      hearttype: ref(""),
-      value1: ref(""),
-      value2: ref(""),
-      csv: ref("")
-    }]); 
+    const data = reactive([
+      {
+        uuid: ref(""),
+        gene: ref(""),
+        hearttype: ref(""),
+        value1: ref(""),
+        value2: ref(""),
+        csv: ref(""),
+      },
+    ]);
 
-firebaseAuthentication.onAuthStateChanged((currentUser) => {
+    firebaseAuthentication.onAuthStateChanged(currentUser => {
       if (currentUser) {
-
-      user.value = currentUser;
-      console.log(user.value);
-
-
+        user.value = currentUser;
+        console.log(user.value);
 
         firebaseFireStore
           .collection("users")
           .doc(user.value.uid)
           .collection("dataAdded")
-          .onSnapshot((snapShot) => {
+          .onSnapshot(snapShot => {
             const snapData = [];
 
-            snapShot.forEach((doc) => {
+            snapShot.forEach(doc => {
               snapData.push({
                 uuid: doc.data().uuid,
                 gene: doc.data().gene,
                 hearttype: doc.data().hearttype,
                 value1: doc.data().value1,
                 value2: doc.data().value2,
-                csv: doc.data().csv
+                csv: doc.data().csv,
               });
             });
 
             data.value = snapData;
-      });
+          });
       } else {
         user.value == null;
       }
-});
-
-        
+    });
 
     function addNewData(gene, hearttype, value1, value2, csv) {
       const newData = reactive({
@@ -100,48 +88,48 @@ firebaseAuthentication.onAuthStateChanged((currentUser) => {
         value1: value1,
         value2: value2,
         csv: csv,
-        createdAt: timestamp()
+        createdAt: timestamp(),
       });
 
       data.push(newData);
-    
 
       firebaseFireStore
-      .collection("users")
-      .doc(user.value.uid)
-      .collection("dataAdded")
-      .add(newData);
-  
-    }
-
-        function deleteData(uuid) {
-        console.log(uuid);
-        
-        firebaseFireStore
         .collection("users")
         .doc(user.value.uid)
         .collection("dataAdded")
-        .where("uuid", "==", uuid )
+        .add(newData);
+    }
+
+    function deleteData(uuid) {
+      console.log(uuid);
+
+      firebaseFireStore
+        .collection("users")
+        .doc(user.value.uid)
+        .collection("dataAdded")
+        .where("uuid", "==", uuid)
         .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
             doc.ref.delete();
           });
 
-      const returnedData = data.find(data => data.uuid === uuid);
-      const pos = data.indexOf(returnedData);
-      data.splice(pos, 1); 
-
+          const returnedData = data.find(data => data.uuid === uuid);
+          const pos = data.indexOf(returnedData);
+          data.splice(pos, 1);
         });
-        } 
-      
-    return { user, data, addNewData, deleteData };
-      
-  }
-};
+    }
 
+    return { user, data, addNewData, deleteData };
+  },
+  methods: {
+    logIn(user) {
+      console.log(user);
+    },
+  },
+};
 </script>
- 
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -150,5 +138,4 @@ firebaseAuthentication.onAuthStateChanged((currentUser) => {
   text-align: center;
   color: #2c3e50;
 }
-
 </style>
