@@ -1,5 +1,6 @@
 <template>
   <Header></Header>
+  <img alt="Cardiomyopathy Banner" src="./assets/cm_banner.png" class="col-sm-8 mx-auto" />
   <router-view @loggedIn="logIn" class="col-sm-8 mx-auto" />
   <Footer></Footer>
 </template>

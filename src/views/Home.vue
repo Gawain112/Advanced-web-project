@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Cardiomyopathy Banner" src="../assets/cm_banner.png" style="width:100%" />
+    
     
     <h1>Cardiomyopathy</h1>
 
