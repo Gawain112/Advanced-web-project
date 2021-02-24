@@ -1,20 +1,34 @@
 <template>
-  <el-form lable-width="95px" class="demo-ruleForm" @submit.prevent>
-    <el-form-item label="Name" :rules="{ required: true }">
+  <el-form
+    ref="registrationModel"
+    :model="registrationModel"
+    lable-width="95px"
+    class="demo-ruleForm"
+    @submit.prevent
+  >
+    <el-form-item
+      label="Name"
+      prop="name"
+      :rules="{ 
+        required: true, 
+        message: 'Do not leave blank.',
+        trigger: 'blur',
+      }"
+    >
       <el-input
-        v-model="name"
+        v-model="registrationModel.name"
         type="text"
         placeholder="Enter full name"
-        required
         autocomplete="off"
       ></el-input>
     </el-form-item>
 
     <el-form-item
-    label="Address"
-    prop="address">
+      label="Address"
+      prop="address"
+    >
       <el-input
-        v-model="address"
+        v-model="registrationModel.address"
         type="text"
         placeholder="Enter your address"
         autocomplete="off"
@@ -22,71 +36,109 @@
     </el-form-item>
 
     <el-form-item
-    label="Phone Number"
-    prop="number">
+      label="Phone Number"
+      prop="number"
+    >
       <el-input
-        v-model="number"
+        v-model="registrationModel.number"
         type="text"
         placeholder="Enter your telephone number"
         autocomplete="off"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Username" :rules="{ required: true }">
+    <el-form-item
+      label="Username"
+      prop="username"
+      :rules="{
+        required: true,
+        message: 'Do not leave blank.',
+        trigger: 'blur',
+      }"
+    >
       <el-input
-        v-model="username"
+        v-model="registrationModel.username"
         type="text"
         placeholder="Enter a unique username"
         autocomplete="off"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="E-Mail" :rules="{ required: true }">
+    <el-form-item
+      label="Email"
+      prop="email"
+      :rules="{
+        required: true,
+        message: 'Do not leave blank.',
+        trigger: 'blur',
+      }"
+    >
       <el-input
-        v-model="email"
+        v-model="registrationModel.email"
         type="email"
         placeholder="Enter your E-Mail address"
-        required
         autocomplete="off"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Institutional Affilation" :rules="{ required: true }">
+    <el-form-item
+      label="Institutional Affilation"
+      prop="institutionalAffilation"
+      :rules="{
+        required: true,
+        message: 'Do not leave blank.',
+        trigger: 'blur',
+      }"
+    >
       <el-input
-        v-model="institutionalAffilation"
+        v-model="registrationModel.institutionalAffilation"
         type="text"
         placeholder="Enter your institutional affilation"
-        required
         autocomplete="off"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Password" :rules="{ required: true }">
+    <el-form-item
+      label="Password"
+      prop="password"
+      :rules="{
+        required: true,
+        message: 'Do not leave blank.',
+        trigger: 'blur',
+      }"
+    >
       <el-input
-        v-model="password"
+        v-model="registrationModel.password"
         type="password"
         placeholder="Enter password"
-        required
         autocomplete="off"
         show-password
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Confirm Password" :rules="{ required: true }">
+    <el-form-item
+      label="Confirm Password"
+      prop="confirmPassword"
+      :rules="{
+        required: true,
+        message: 'Do not leave blank.',
+        trigger: 'blur',
+      }"
+    >
       <el-input
-        v-model="confirmPassword"
+        v-model="registrationModel.confirmPassword"
         type="password"
         placeholder="Re-enter password"
         show-password
       ></el-input>
     </el-form-item>
 
-    <el-alert v-if="errorRegistration" title="Error" type="error" effect="dark">
+    <el-alert v-if="errorRegistration" title="Error" prop="errorRegistration" type="error" effect="dark">
       {{ errorRegistration }}
     </el-alert>
 
     <el-form-item>
-      <el-button style="center" type="success" @click="register"
+      <el-button style="center" type="success" @click="registrationModel"
         >Register
       </el-button>
     </el-form-item>
@@ -102,76 +154,83 @@ export default {
   name: "RegisterForm",
   emits: ["register-clicked"],
 
-  setup() {
-    const name = ref("");
-    const address = ref("");
-    const number = ref("");
-    const username = ref("");
-    const email = ref("");
-    const institutionalAffilation = ref("");
-    const password = ref("");
-    const confirmPassword = ref("");
-    const errorRegistration = ref("");
+  data() {
+    return {
+      registrationModel: ref({ 
+        name: "", 
+        address: "", 
+        number: "", 
+        username: "", 
+        email: "", 
+        institutionalAffilation: "", 
+        password: this.password, 
+        confirmPassword: this.confirmPassword
+      }),
+      errorRegistration: ref(""),
+    };
+  },
+  
+  methods: {
+    validateRegistration(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.register();
+        } else {
+          return false;
+        }
+      });
+    },
+    
+    register() {
+      const router = useRouter();
 
-    watch(confirmPassword, () => {
+       async () => {
+        const info = {
+          name: this.registrationModel.name,
+          address: this.registrationModel.address,
+          number: this.registrationModel.number,
+          username: this.registrationModel.username,
+          email: this.email.registrationModel,
+          institutionalAffilation: this.registrationModel.institutionalAffilation,
+          password: this.registrationModel.password,
+        };
+
+        console.log(router);
+
+        try {
+          const res = await firebaseAuthentication.createUserWithEmailAndPassword(
+            info.email,
+            info.password,
+          );
+
+          await res.user.sendEmailVerification();
+
+          await firebaseFireStore
+            .collection("users")
+            .doc(`${res.user.uid}`)
+            .set(info);
+
+          router.push({ name: "Login" });
+        } catch (err) {
+          console.log(err);
+          this.errorRegistration.value = err.message;
+        }
+      };
+    },
+
+    confirmPass () {
+    watch(this.confirmPassword, () => {
       if (
-        password.value !== "" &&
-        confirmPassword.value !== "" &&
-        password.value !== confirmPassword.value
+        this.password !== "" &&
+        this.confirmPassword !== "" &&
+        this.password !== this.confirmPassword.value
       ) {
-        errorRegistration.value = "Passwords do not match!";
+        this.errorRegistration = "Passwords do not match!";
       } else {
-        errorRegistration.value = null;
+        this.errorRegistration = null;
       }
     });
-
-    const router = useRouter();
-
-    const register = async () => {
-      const info = {
-        name: name.value,
-        address: address.value,
-        number: number.value,
-        username: username.value,
-        email: email.value,
-        institutionalAffilation: institutionalAffilation.value,
-        password: password.value,
-      };
-
-      console.log(router);
-
-      try {
-        const res = await firebaseAuthentication.createUserWithEmailAndPassword(
-          info.email,
-          info.password,
-        );
-
-        await res.user.sendEmailVerification();
-
-        await firebaseFireStore
-          .collection("users")
-          .doc(`${res.user.uid}`)
-          .set(info);
-
-        router.push({ name: "Login" });
-      } catch (err) {
-        console.log(err);
-        errorRegistration.value = err.message;
-      }
-    };
-
-    return {
-      name,
-      address,
-      number,
-      username,
-      email,
-      institutionalAffilation,
-      password,
-      confirmPassword,
-      register,
-      errorRegistration,
-    };
+    },
   },
 };
 </script>
