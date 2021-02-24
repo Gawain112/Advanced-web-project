@@ -3,17 +3,17 @@ module.exports = {
   globals: {
     "ts-jest": {
       tsConfig: "tsconfig.json",
-      enableTsDiagnostics: true
-    }
+      enableTsDiagnostics: true,
+    },
   },
   moduleNameMapper: {
-    "@/(.*)": "<rootDir>/src/$1"
+    "@/(.*)": "<rootDir>/src/$1",
   },
   testEnvironment: "jsdom",
   transform: {
     "^.+\\.vue$": "vue-jest",
     "^.+\\js$": "babel-jest",
-    "^.+\\.(ts|tsx)$": "ts-jest"
+    "^.+\\.(ts|tsx)$": "ts-jest",
   },
-  moduleFileExtensions: ["vue", "js", "json", "jsx", "ts", "tsx", "node"]
+  moduleFileExtensions: ["vue", "js", "json", "jsx", "ts", "tsx", "node"],
 };

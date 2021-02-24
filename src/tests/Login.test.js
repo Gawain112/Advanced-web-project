@@ -4,8 +4,8 @@ import ElementPlus from "element-plus";
 
 const wrapper = mount(Login, {
   global: {
-    plugins: [ElementPlus]
-  }
+    plugins: [ElementPlus],
+  },
 });
 
 const email = "ccarr895@gmail.com";
