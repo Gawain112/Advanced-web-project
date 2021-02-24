@@ -19,6 +19,11 @@
           >Search</router-link
         >
       </li>
+      <li class="nav-item">
+        <router-link :to="{ name: 'Graph' }" class="nav-link"
+          >Graphs</router-link
+        >
+      </li>
     </ul>
 
     <ul class="nav navbar-nav ml-auto">

@@ -5,11 +5,12 @@ import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
 import Analysis from "@/views/Analysis.vue";
 import firebaseTests from "@/firebase/firebaseTests/FirebaseTests.vue";
-import Search from "@/views/search/Search.vue";
 import Sitemap from "@/views/Sitemap.vue";
 import Login from "@/views/account/Login.vue";
 import Register from "@/views/account/Register.vue";
 import NotFound from "@/views/NotFound.vue";
+import Graph from "@/views/Graph.vue";
+import Search from "@/views/search/Search.vue";
 
 const routes = [
   {
@@ -46,7 +47,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: AddData,
-    meta: { title: "AddData | Cardiomyopathy" }
+    meta: { title: "AddData | Cardiomyopathy" },
   },
   {
     path: "/heartdata",
@@ -55,7 +56,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: HeartData,
-    meta: { title: "HeartData | Cardiomyopathy" }
+    meta: { title: "HeartData | Cardiomyopathy" },
   },
   {
     path: "/analysis",
@@ -88,17 +89,23 @@ const routes = [
     meta: { title: "Site Map | Cardiomyopathy" },
   },
   {
-    path: "/search",
-    name: "Search",
-    component: Search,
-    meta: { title: "Search | Cardiomyopathy" }
-  },
-  {
     path: "/:catchAll(.*)",
     redirect: "/",
     name: "Not Found",
     component: NotFound,
     meta: { title: "Not Found | Cardiomyopathy" },
+  },
+  {
+    path: "/graph",
+    name: "Graph",
+    meta: { title: "Graph | Cardiomyopathy" },
+    component: Graph,
+  },
+  {
+    path: "/search",
+    name: "Search",
+    meta: { title: "Search | Cardiomyopathy" },
+    component: Search,
   },
 ];
 
