@@ -7,22 +7,12 @@
         </div>
       </template>
       <el-row>
-        <el-col :span="20">
+        <el-col :span="24">
           <el-input
             v-model="search"
             placeholder="Type here to Search"
             @input="submitPressed = false"
           ></el-input>
-        </el-col>
-        <el-col :span="4">
-          <el-select
-            v-model="selectedSearchType"
-            @change="submitPressed = false"
-          >
-            <el-option default value="genes">Genes</el-option>
-            <el-option value="synopsis">Clinical Synopsis</el-option>
-            <el-option value="phenotype">Phenotype</el-option>
-          </el-select>
         </el-col>
       </el-row>
 
@@ -38,12 +28,8 @@
       </el-row>
 
       <div v-if="submitPressed">
-        <div v-if="selectedSearchType == 'synopsis'">
-          <SearchSynopsis :to-search="search" />
-        </div>
-        <div v-if="selectedSearchType == 'genes'">
-          <SearchGene :gene-symbol="search" />
-        </div>
+        <SearchGene :gene-symbol="search" />
+        <SearchData :gene="search" />
       </div>
       <div v-else>
         <h2 class="mt-5">Search results will appear here</h2>
@@ -55,11 +41,11 @@
 <script>
 import { ref } from "vue";
 import SearchGene from "@/components/search/SearchGene";
-import SearchSynopsis from "@/components/search/SearchSynopsis";
+import SearchData from "@/components/search/SearchData";
 
 export default {
   name: "Search",
-  components: { SearchGene, SearchSynopsis },
+  components: { SearchGene, SearchData },
   setup() {
     const selectedSearchType = ref("");
     const search = ref("");

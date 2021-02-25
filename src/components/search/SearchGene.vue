@@ -82,7 +82,8 @@ export default {
         if (Object.keys(json.omim.searchResponse.geneMapList).length > 0) {
           geneInfo.value = json.omim.searchResponse;
         } else {
-          error.value = "Could not find information on this gene";
+          error.value =
+            "Could not find information on this gene, checked: " + geneInfoUrl;
         }
       });
 
