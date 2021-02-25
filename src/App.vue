@@ -1,11 +1,11 @@
 <template>
-  <Header></Header>
+  <Header :user="user" @logoutEvent="logout"></Header>
   <img
     alt="Cardiomyopathy Banner"
     src="./assets/cm_banner.png"
     class="col-sm-8 mx-auto"
   />
-  <router-view :data="data" :user="user" class="col-sm-8 mx-auto" />
+  <router-view :user="user" class="col-sm-8 mx-auto" @loggedIn="logIn" />
   <Footer></Footer>
 </template>
 
@@ -13,23 +13,26 @@
 import { ref } from "vue";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import router from "@/router";
 import { firebaseAuthentication } from "./firebase/database.js";
 
 export default {
   name: "App",
   components: { Header, Footer },
   setup() {
-    const user = ref({});
+    let user = ref("");
 
-    firebaseAuthentication.onAuthStateChanged(currentUser => {
-      if (currentUser) {
-        user.value = currentUser;
-      } else {
-        user.value == {};
-      }
-    });
+    let logout = () => {
+      firebaseAuthentication.signOut();
+      user.value = "";
+      router.push("/");
+    };
 
-    return { user };
+    let logIn = logInUser => {
+      user.value = logInUser;
+    };
+
+    return { user, logout, logIn };
   },
 };
 </script>

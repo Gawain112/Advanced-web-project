@@ -76,14 +76,18 @@ import { timestamp, firebaseFireStore } from "@/firebase/database";
 
 export default {
   name: "AddDataForm",
-  setup() {
+  props: {
+    user: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
     const gene = ref("");
     const hearttype = ref("");
-    const value1 = ref("");
-    const value2 = ref("");
     const csv = ref({});
 
-    let selectOptions = [
+    const selectOptions = [
       "Force-Time curve",
       "Sarcomere Length VS Time",
       "Sliding Velocity VS Calcium Concentration",
@@ -98,30 +102,26 @@ export default {
       });
     };
 
-    function submitAddedData() {
+    let submitAddedData = async () => {
       const newData = {
-        uuid: "" + new Date().getMilliseconds().toString(),
+        uuid: "" + new Date().toLocaleTimeString(),
         gene: "" + gene.value,
         hearttype: "" + hearttype.value,
         csv: "" + csv.value,
         createdAt: "" + timestamp().toString(),
-        createdBy: "fakeUser123",
+        createdBy: props.user,
       };
-
-      console.log(newData);
 
       firebaseFireStore
         .collection("data")
         .doc(newData.gene)
         .collection(newData.hearttype)
         .add(newData);
-    }
+    };
 
     return {
       gene,
       hearttype,
-      value1,
-      value2,
       csv,
       submitAddedData,
       selectOptions,
