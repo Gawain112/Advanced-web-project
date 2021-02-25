@@ -80,11 +80,9 @@
           Y: { required: true, label: 'Y' },
         }"
       >
-        <vue-csv-input name="file"></vue-csv-input>
+        <vue-csv-input name="data"></vue-csv-input>
         <vue-csv-toggle-headers></vue-csv-toggle-headers>
-        <vue-csv-map :auto-match="false"></vue-csv-map>
-
-        // delete auto match?
+        <vue-csv-map></vue-csv-map>
       </vue-csv-import>
     </el-form-item>
 
@@ -134,23 +132,3 @@ export default {
   },
 };
 </script>
-<!-- <template>
-  <el-main>
-    <div class="card">
-      <div class="card-title border-bottom">
-        <h1 class="display-1">Add Data</h1>
-      </div>
-      <AddDataForm />
-    </div>
-  </el-main>
-</template>
-
-<script>
-import AddDataForm from "@/components/AddData/AddDataForm.vue";
-
-export default {
-  components: { AddDataForm }
-};
-</script>
-
-<style></style> -->
