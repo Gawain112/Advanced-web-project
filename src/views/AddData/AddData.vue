@@ -72,9 +72,20 @@
       <el-input v-model="value2"></el-input>
     </el-form-item>
 
-    <el-form-item v-model="csv">
-      <input type="file" />
-      <progress max="100"></progress>
+    <el-form-item>
+      <vue-csv-import
+        v-model="csv"
+        :fields="{
+          X: { required: true, label: 'X' },
+          Y: { required: true, label: 'Y' },
+        }"
+      >
+        <vue-csv-input name="file"></vue-csv-input>
+        <vue-csv-toggle-headers></vue-csv-toggle-headers>
+        <vue-csv-map :auto-match="false"></vue-csv-map>
+
+        // delete auto match?
+      </vue-csv-import>
     </el-form-item>
 
     <el-form-item>
