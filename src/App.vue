@@ -1,142 +1,55 @@
 <template>
-  <Header></Header>
-
-  <img
-    alt="Cardiomyopathy Banner"
-    src="./assets/cm_banner.png"
-    class="col-sm-8 mx-auto"
-  />
-  <router-view
-    :data="data"
-    :user="user"
-    class="col-sm-8 mx-auto"
-    @add-data="addNewData"
-    @loggedIn="logIn"
-  />
-  <heart-data
-    v-for="data in data"
-    :key="data.uuid"
-    :data="data"
-    @delete-data="deleteData"
-  >
-  </heart-data>
+  <Header :user="user" @logoutEvent="logout"></Header>
+  <router-view :user="user" class="col-sm-8 mx-auto" @loggedIn="logIn" />
   <Footer></Footer>
 </template>
 
 <script>
-import { ref, reactive } from "vue";
-import heartData from "./views/HeartData/HeartData.vue";
+import { ref } from "vue";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import {
-  firebaseFireStore,
-  firebaseAuthentication,
-  timestamp,
-} from "./firebase/database.js";
+import router from "@/router";
+import { firebaseAuthentication } from "./firebase/database.js";
 
 export default {
   name: "App",
-  components: { heartData, Header, Footer },
-
+  components: { Header, Footer },
   setup() {
-    const user = ref(null);
-    const data = reactive([
-      {
-        uuid: ref(""),
-        gene: ref(""),
-        hearttype: ref(""),
-        value1: ref(""),
-        value2: ref(""),
-        csv: ref(""),
-      },
-    ]);
+    let user = ref("");
 
-    firebaseAuthentication.onAuthStateChanged(currentUser => {
-      if (currentUser) {
-        user.value = currentUser;
-        console.log(user.value);
+    let logIn = logInUser => {
+      user.value = logInUser;
+    };
 
-        firebaseFireStore
-          .collection("users")
-          .doc(user.value.uid)
-          .collection("dataAdded")
-          .onSnapshot(snapShot => {
-            const snapData = [];
-
-            snapShot.forEach(doc => {
-              snapData.push({
-                uuid: doc.data().uuid,
-                gene: doc.data().gene,
-                hearttype: doc.data().hearttype,
-                value1: doc.data().value1,
-                value2: doc.data().value2,
-                csv: doc.data().csv,
-              });
-            });
-
-            data.value = snapData;
-          });
-      } else {
-        user.value == null;
-      }
-    });
-
-    function addNewData(gene, hearttype, value1, value2, csv) {
-      const newData = reactive({
-        uuid: new Date().getMilliseconds(),
-        gene: gene,
-        hearttype: hearttype,
-        value1: value1,
-        value2: value2,
-        csv: csv,
-        createdAt: timestamp(),
-      });
-
-      data.push(newData);
-
-      firebaseFireStore
-        .collection("users")
-        .doc(user.value.uid)
-        .collection("dataAdded")
-        .add(newData);
-    }
-
-    function deleteData(uuid) {
-      console.log(uuid);
-
-      firebaseFireStore
-        .collection("users")
-        .doc(user.value.uid)
-        .collection("dataAdded")
-        .where("uuid", "==", uuid)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            doc.ref.delete();
-          });
-
-          const returnedData = data.find(data => data.uuid === uuid);
-          const pos = data.indexOf(returnedData);
-          data.splice(pos, 1);
-        });
-    }
-
-    return { user, data, addNewData, deleteData };
+    return { user, logIn };
   },
   methods: {
-    logIn(user) {
-      console.log(user);
+    logout() {
+      firebaseAuthentication.signOut();
+      this.user = "";
+      router.push("/");
+      this.$notify({
+        title: "Success",
+        message: "You are now logged out.",
+        type: "error",
+        duration: 3000,
+      });
     },
   },
 };
 </script>
 
 <style>
+html,
+body {
+  height: 100%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  height: 100%;
   color: #2c3e50;
 }
 </style>

@@ -1,145 +1,151 @@
 <template>
-  <h1>Add Data</h1>
-
-  <el-form ref="addDataForm">
-    <el-form-item>
-      <h3>Gene</h3>
-      <input
-        id="TNNT"
-        v-model="gene"
-        style="margin-left:2.5em"
-        type="radio"
-        value="TNNT"
-      />
-      <label for="TNNT"> TNNT</label>
-      <input
-        id="MYH"
-        v-model="gene"
-        style="margin-left:2.5em"
-        type="radio"
-        value="MYH"
-      />
-      <label for="MYH"> MYH</label>
-      <input
-        id="MYBPC3"
-        v-model="gene"
-        style="margin-left:2.5em"
-        type="radio"
-        value="MYBPC3"
-      />
-      <label for="MYBPC3"> MYBPC3</label>
-      <input
-        id="TPM1"
-        v-model="gene"
-        style="margin-left:2.5em"
-        type="radio"
-        value="TPM1"
-      />
-      <label for="TPM1"> TPM1</label>
-    </el-form-item>
-
-    <el-form-item>
-      <h4>Data Type</h4>
-      <select v-model="hearttype">
-        <option value="Force-Time curve">Force-Time Curve</option>
-        <option value="Sarcomere Length VS Time"
-          >Sarcomere Length VS Time</option
-        >
-        <option value="Sliding Velocity VS Calcium Concentration"
-          >Sliding Velocity VS Calcium Concentration</option
-        >
-        <option value="Tension/Force VS Calcium Concentration"
-          >Tension/Force VS Calcium Concentration</option
-        >
-        <option value="Force/Tension VS Sarcomere Shortening Velocity"
-          >Force/Tension VS Sarcomere Shortening Velocity</option
-        >
-        <option value="Sarcomere Shortening VS Time"
-          >Sarcomere Shortening VS Time</option
-        >
-      </select>
-    </el-form-item>
-
-    <el-form-item>
-      <h5>Value 1</h5>
-      <el-input v-model="value1"></el-input>
-    </el-form-item>
-
-    <h3>VS</h3>
-
-    <el-form-item>
-      <h5>Value 2</h5>
-      <el-input v-model="value2"></el-input>
-    </el-form-item>
-
-    <el-form-item v-model="csv">
-      <input type="file" />
-      <progress max="100"></progress>
-    </el-form-item>
-
-    <el-form-item>
-      <el-button type="submit" @click="submitAddedData">Add Data</el-button>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="submit" @click="this.$router.push({ path: `home` })"
-        >Cancel</el-button
-      >
-    </el-form-item>
-  </el-form>
-</template>
-
-<script>
-import { ref } from "vue";
-
-export default {
-  name: "AddDataForm",
-  props: {
-    dataAdded: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  emits: ["add-data"],
-
-  setup(props, context) {
-    const gene = ref("");
-    const hearttype = ref("");
-    const value1 = ref("");
-    const value2 = ref("");
-    const csv = ref("");
-
-    function submitAddedData() {
-      context.emit(
-        "add-data",
-        gene.value,
-        hearttype.value,
-        value1.value,
-        value2.value,
-        csv.value,
-      );
-    }
-
-    return { gene, hearttype, value1, value2, csv, submitAddedData };
-  },
-};
-</script>
-<!-- <template>
   <el-main>
-    <div class="card">
-      <div class="card-title border-bottom">
-        <h1 class="display-1">Add Data</h1>
-      </div>
-      <AddDataForm />
-    </div>
+    <h1>Add Data</h1>
+
+    <el-form ref="addDataForm">
+      <el-form-item>
+        <el-row><h3>Gene</h3></el-row>
+        <el-row
+          ><el-radio-group v-model="gene">
+            <el-radio label="TNNT">TNNT</el-radio>
+            <el-radio label="MYH">MYH</el-radio>
+            <el-radio label="MYBPC3">MYBPC3</el-radio>
+            <el-radio label="TPM1">TPM1</el-radio>
+          </el-radio-group></el-row
+        >
+      </el-form-item>
+
+      <el-form-item>
+        <el-row><h4>Data Type</h4></el-row>
+        <el-row
+          ><el-col :span="20"
+            ><el-select
+              v-model="hearttype"
+              style="width: 100%"
+              clearable
+              placeholder="Select"
+            >
+              <el-option
+                v-for="option in selectOptions"
+                :key="option"
+                :label="option"
+                :value="option"
+              >
+              </el-option> </el-select></el-col
+        ></el-row>
+      </el-form-item>
+
+      <el-form-item>
+        <el-row><h4>Upload CSV File of X and Y axis</h4></el-row>
+        <el-row
+          ><el-upload
+            accept="csv"
+            :on-success="uploadCsv"
+            drag
+            action="https://jsonplaceholder.typicode.com/posts/"
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              Drop file here or <em>click to upload</em>
+            </div>
+            <template #tip>
+              <div class="el-upload__tip">
+                The uploaded csv should only contain 2 columns. The first column
+                should be the X axis.
+              </div>
+            </template>
+          </el-upload></el-row
+        ></el-form-item
+      >
+
+      <el-form-item>
+        <el-button @click="submitAddedData">Add Data</el-button>
+      </el-form-item>
+      <el-form-item>
+        <el-button @click="this.$router.push({ path: `home` })"
+          >Cancel</el-button
+        >
+      </el-form-item>
+    </el-form>
   </el-main>
 </template>
 
 <script>
-import AddDataForm from "@/components/AddData/AddDataForm.vue";
+import { ref } from "vue";
+import { timestamp, firebaseFireStore } from "@/firebase/database";
+import { useRouter } from "vue-router";
+import { ElNotification } from "element-plus";
 
 export default {
-  components: { AddDataForm }
+  name: "AddDataForm",
+  props: {
+    user: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
+    const gene = ref("");
+    const hearttype = ref("");
+    const csv = ref({});
+    const router = useRouter();
+
+    const selectOptions = [
+      "Force-Time curve",
+      "Sarcomere Length VS Time",
+      "Sliding Velocity VS Calcium Concentration",
+      "Tension VS Calcium Concentration",
+      "Tension VS Sarcomere Shortening Velocity",
+      "Sarcomere Shortening VS Time",
+    ];
+
+    let uploadCsv = async (res, file) => {
+      file.raw.text().then(res => {
+        csv.value = res;
+      });
+    };
+
+    let submitAddedData = async () => {
+      const newData = {
+        uuid: "" + new Date().toLocaleTimeString(),
+        gene: "" + gene.value,
+        hearttype: "" + hearttype.value,
+        csv: "" + csv.value,
+        createdAt: "" + timestamp().toString(),
+        createdBy: props.user,
+      };
+
+      firebaseFireStore
+        .collection("data")
+        .doc(newData.gene)
+        .collection(newData.hearttype)
+        .add(newData)
+        .then(res => {
+          ElNotification({
+            title: "Success",
+            message: "Document has been uploaded",
+            type: "success",
+            duration: 3000,
+          });
+          router.push({
+            name: "Graph",
+            params: {
+              geneSymbol: newData.gene,
+              graphType: newData.hearttype,
+              graphId: res.id,
+            },
+          });
+        });
+    };
+
+    return {
+      gene,
+      hearttype,
+      csv,
+      submitAddedData,
+      selectOptions,
+      uploadCsv,
+    };
+  },
 };
 </script>
-
-<style></style> -->

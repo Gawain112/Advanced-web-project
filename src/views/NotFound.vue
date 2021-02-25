@@ -1,7 +1,8 @@
 <template>
-  <div class="notfound">
-    <NotFound msg="Page not found." />
-  </div>
+  <el-main
+    ><div class="notfound">
+      <NotFound msg="Page not found." /></div
+  ></el-main>
 </template>
 
 <script>
