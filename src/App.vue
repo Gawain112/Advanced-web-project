@@ -1,10 +1,5 @@
 <template>
   <Header :user="user" @logoutEvent="logout"></Header>
-  <img
-    alt="Cardiomyopathy Banner"
-    src="./assets/cm_banner.png"
-    class="col-sm-8 mx-auto"
-  />
   <router-view :user="user" class="col-sm-8 mx-auto" @loggedIn="logIn" />
   <Footer></Footer>
 </template>
@@ -22,27 +17,39 @@ export default {
   setup() {
     let user = ref("");
 
-    let logout = () => {
-      firebaseAuthentication.signOut();
-      user.value = "";
-      router.push("/");
-    };
-
     let logIn = logInUser => {
       user.value = logInUser;
     };
 
-    return { user, logout, logIn };
+    return { user, logIn };
+  },
+  methods: {
+    logout() {
+      firebaseAuthentication.signOut();
+      this.user = "";
+      router.push("/");
+      this.$notify({
+        title: "Success",
+        message: "You are now logged out.",
+        type: "error",
+        duration: 3000,
+      });
+    },
   },
 };
 </script>
 
 <style>
+html,
+body {
+  height: 100%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  height: 100%;
   color: #2c3e50;
 }
 </style>

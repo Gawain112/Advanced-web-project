@@ -73,6 +73,8 @@
 <script>
 import { ref } from "vue";
 import { timestamp, firebaseFireStore } from "@/firebase/database";
+import { useRouter } from "vue-router";
+import { ElNotification } from "element-plus";
 
 export default {
   name: "AddDataForm",
@@ -86,6 +88,7 @@ export default {
     const gene = ref("");
     const hearttype = ref("");
     const csv = ref({});
+    const router = useRouter();
 
     const selectOptions = [
       "Force-Time curve",
@@ -116,7 +119,23 @@ export default {
         .collection("data")
         .doc(newData.gene)
         .collection(newData.hearttype)
-        .add(newData);
+        .add(newData)
+        .then(res => {
+          ElNotification({
+            title: "Success",
+            message: "Document has been uploaded",
+            type: "success",
+            duration: 3000,
+          });
+          router.push({
+            name: "Graph",
+            params: {
+              geneSymbol: newData.gene,
+              graphType: newData.hearttype,
+              graphId: res.id,
+            },
+          });
+        });
     };
 
     return {

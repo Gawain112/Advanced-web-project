@@ -28,19 +28,14 @@
           >Example Data Graph</router-link
         >
       </li>
-      <li class="nav-item">
-        <router-link :to="{ name: 'Search' }" class="nav-link"
-          >Search</router-link
-        >
-      </li>
       <li v-if="user != ''" class="nav-item">
         <router-link :to="{ name: 'AddData' }" class="nav-link"
           >Add Data</router-link
         >
       </li>
       <li v-if="user != ''" class="nav-item">
-        <router-link :to="{ name: 'HeartData' }" class="nav-link"
-          >Heart Data</router-link
+        <router-link :to="{ name: 'Search' }" class="nav-link"
+          >Search</router-link
         >
       </li>
     </ul>
@@ -61,6 +56,11 @@
       </li>
     </ul>
   </nav>
+  <img
+    alt="Cardiomyopathy Banner"
+    src="./../assets/cm_banner.png"
+    class="banner"
+  />
 </template>
 
 <script>
@@ -76,3 +76,15 @@ export default {
   emits: ["logoutEvent"],
 };
 </script>
+
+<style>
+.router-link-exact-active {
+  color: #fd7e14 !important;
+}
+.banner {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  margin-bottom: 4rem;
+}
+</style>
