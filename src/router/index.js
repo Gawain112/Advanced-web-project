@@ -96,10 +96,11 @@ const routes = [
     meta: { title: "Not Found | Cardiomyopathy" },
   },
   {
-    path: "/graph",
+    path: "/graph/:geneSymbol/:graphType/:graphId/",
     name: "Graph",
     meta: { title: "Graph | Cardiomyopathy" },
     component: Graph,
+    props: true,
   },
   {
     path: "/search",

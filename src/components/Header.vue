@@ -15,21 +15,30 @@
         >
       </li>
       <li class="nav-item">
+        <router-link
+          :to="{
+            name: 'Graph',
+            params: {
+              geneSymbol: 'TPM1',
+              graphType: 'Tension VS Calcium Concentration',
+              graphId: '9whZ5R15rrzCOfV8bcNv',
+            },
+          }"
+          class="nav-link"
+          >Example Data Graph</router-link
+        >
+      </li>
+      <li class="nav-item">
         <router-link :to="{ name: 'Search' }" class="nav-link"
           >Search</router-link
         >
       </li>
-      <li class="nav-item">
-        <router-link :to="{ name: 'Graph' }" class="nav-link"
-          >Graphs</router-link
-        >
-      </li>
-      <li v-if="user != null" class="nav-item">
+      <li v-if="user != ''" class="nav-item">
         <router-link :to="{ name: 'AddData' }" class="nav-link"
           >Add Data</router-link
         >
       </li>
-      <li v-if="user != null" class="nav-item">
+      <li v-if="user != ''" class="nav-item">
         <router-link :to="{ name: 'HeartData' }" class="nav-link"
           >Heart Data</router-link
         >

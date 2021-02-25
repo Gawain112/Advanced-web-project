@@ -38,8 +38,8 @@
       }"
     >
       <el-input
-        type="password"
         v-model="loginModel.password"
+        type="password"
         placeholder="Input Password"
         show-password
       ></el-input>
