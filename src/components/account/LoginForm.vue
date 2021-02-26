@@ -7,25 +7,22 @@
     :size="size"
   >
     <el-form-item
-      label="Username"
-      prop="username"
+      label="Email"
+      prop="email"
       :rules="[
         {
           required: true,
-          message: 'Username cannot be blank',
+          message: 'Email cannot be blank',
           trigger: 'blur',
         },
         {
           min: 3,
-          message: 'Username must be 3 characters or more',
+          message: 'Email must be 3 characters or more',
           trigger: 'blur',
         },
       ]"
     >
-      <el-input
-        v-model="loginModel.username"
-        placeholder="Input Username"
-      ></el-input>
+      <el-input v-model="loginModel.email" placeholder="Input Email"></el-input>
     </el-form-item>
 
     <el-form-item
@@ -52,6 +49,13 @@
         >Login</el-button
       >
     </el-form-item>
+    <el-form-item>
+      <router-link :to="{ name: 'forgotPassword' }" class="hover:underline">
+        <el-button style="margin-left: -4rem;" type="primary"
+          >Forgot Password</el-button
+        >
+      </router-link>
+    </el-form-item>
 
     <el-alert v-if="errorMsg" title="Error" type="error" effect="dark">
       {{ errorMsg }}
@@ -76,7 +80,7 @@ export default {
   emits: ["loggedIn"],
   data() {
     return {
-      loginModel: ref({ username: "", password: "" }),
+      loginModel: ref({ email: "", password: "" }),
       loginAttempts: 0,
       errorMsg: ref(""),
     };
@@ -95,23 +99,21 @@ export default {
       let context = this;
 
       let password = this.loginModel.password;
-      let username = this.loginModel.username;
+      let email = this.loginModel.email;
 
-      firebaseAuthentication
-        .signInWithEmailAndPassword(username, password)
-        .then(
-          () => {
-            context.$emit("loggedIn", username);
-          },
-          error => {
-            if (context.loginAttempts > 4) {
-              //user failed to log in 5 times
-              context.$router.push("/about");
-            }
-            context.loginAttempts++;
-            context.updateErrorMessage(error.message);
-          },
-        );
+      firebaseAuthentication.signInWithEmailAndPassword(email, password).then(
+        () => {
+          context.$emit("loggedIn", email);
+        },
+        error => {
+          if (context.loginAttempts > 4) {
+            //user failed to log in 5 times
+            context.$router.push("/about");
+          }
+          context.loginAttempts++;
+          context.updateErrorMessage(error.message);
+        },
+      );
     },
     updateErrorMessage(withMessage) {
       this.errorMsg = withMessage;

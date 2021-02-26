@@ -6,6 +6,7 @@ import firebaseTests from "@/firebase/firebaseTests/FirebaseTests.vue";
 import Sitemap from "@/views/Sitemap.vue";
 import Login from "@/views/account/Login.vue";
 import Register from "@/views/account/Register.vue";
+import ForgotPassword from "@/views/account/ForgotPassword.vue";
 import NotFound from "@/views/NotFound.vue";
 import Graph from "@/views/Graph.vue";
 import Search from "@/views/search/Search.vue";
@@ -52,6 +53,12 @@ const routes = [
     name: "Register",
     component: Register,
     meta: { title: "Register | Cardiomyopathy" },
+  },
+  {
+    path: "/password-reset",
+    name: "forgotPassword",
+    component: ForgotPassword,
+    meta: { title: "Password Reset | Cardiomyopathy" },
   },
   {
     path: "/tests",
