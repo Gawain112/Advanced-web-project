@@ -1,7 +1,7 @@
 <template>
   <el-main>
     <el-row class="mb-3"><h1>Graph visualizing experimental data</h1></el-row>
-    <div v-if="dataReady">
+    <div v-if="dataReady" id="graph-styling">
       <el-row
         ><el-col :span="24"
           ><VueApexCharts
@@ -181,4 +181,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#graph-styling {
+  margin: 0 auto;
+  justify-content: center;
+}
+</style>
