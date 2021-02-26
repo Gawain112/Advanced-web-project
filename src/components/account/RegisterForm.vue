@@ -4,7 +4,7 @@
       <el-input
         v-model="name"
         type="text"
-        placeholder="enter full name"
+        placeholder="Input Name"
         required
         autocomplete="off"
       ></el-input>
@@ -14,7 +14,7 @@
       <el-input
         v-model="address"
         type="text"
-        placeholder="enter your address"
+        placeholder="Input Address"
         autocomplete="off"
       ></el-input>
     </el-form-item>
@@ -23,7 +23,7 @@
       <el-input
         v-model="number"
         type="text"
-        placeholder="enter your telephone number"
+        placeholder="Input Telephone Number"
         autocomplete="off"
       ></el-input>
     </el-form-item>
@@ -32,16 +32,16 @@
       <el-input
         v-model="username"
         type="text"
-        placeholder="enter a unique username"
+        placeholder="Input Username"
         autocomplete="off"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="E-Mail" :rules="{ required: true }">
+    <el-form-item label="Email" :rules="{ required: true }">
       <el-input
         v-model="email"
         type="email"
-        placeholder="enter your E-Mail address"
+        placeholder="Input Email Address"
         required
         autocomplete="off"
       ></el-input>
@@ -51,7 +51,7 @@
       <el-input
         v-model="institutionalAffilation"
         type="text"
-        placeholder="enter your institutional affilation"
+        placeholder="Input Institutional Affilation"
         required
         autocomplete="off"
       ></el-input>
@@ -61,7 +61,7 @@
       <el-input
         v-model="password"
         type="password"
-        placeholder="enter password"
+        placeholder="Input Password"
         required
         autocomplete="off"
         show-password
@@ -72,7 +72,7 @@
       <el-input
         v-model="confirmPassword"
         type="password"
-        placeholder="re-enter password"
+        placeholder="Input Password Again"
         show-password
       ></el-input>
     </el-form-item>

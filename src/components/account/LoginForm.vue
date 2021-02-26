@@ -52,6 +52,13 @@
         >Login</el-button
       >
     </el-form-item>
+    <el-form-item>
+      <router-link :to="{ name: 'forgotPassword' }" class="hover:underline">
+        <el-button style="margin-left: -4rem;" type="primary"
+          >Forgot Password</el-button
+        >
+      </router-link>
+    </el-form-item>
 
     <el-alert v-if="errorMsg" title="Error" type="error" effect="dark">
       {{ errorMsg }}
