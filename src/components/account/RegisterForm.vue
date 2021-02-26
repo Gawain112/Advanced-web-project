@@ -95,6 +95,7 @@
         type="password"
         placeholder="re-enter password"
         show-password
+        @blur="checkPasswordsMatch()"
       ></el-input>
     </el-form-item>
 
@@ -119,7 +120,7 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { firebaseAuthentication, firebaseFireStore } from "@/firebase/database";
 import validator from "email-validator";
 
@@ -151,22 +152,19 @@ export default {
         }
       });
     },
-    checkPasswordsMatch: () => {
-      watch(this.registerModel.confirmPassword, () => {
-        if (
-          this.registerModel.password.value !== "" &&
-          this.registerModel.confirmPassword.value !== "" &&
-          this.registerModel.password.value !==
-            this.registerModel.confirmPassword.value
-        ) {
-          this.registerModel.errorRegistration.value =
-            "Passwords do not match!";
-        } else {
-          this.registerModel.errorRegistration.value = null;
-        }
-      });
+    checkPasswordsMatch() {
+      console.log(global.registerModel);
+      if (
+        this.registerModel.password !== "" &&
+        this.registerModel.confirmPassword !== "" &&
+        this.registerModel.password !== this.registerModel.confirmPassword
+      ) {
+        this.registerModel.errorRegistration = "Passwords do not match!";
+      } else {
+        this.registerModel.errorRegistration = null;
+      }
     },
-    checkValidEmail: (rule, value, callback) => {
+    checkValidEmail(rule, value, callback) {
       if (validator.validate(value) == true) {
         callback();
       } else {
@@ -198,14 +196,6 @@ export default {
           .collection("users")
           .doc(`${res.user.uid}`)
           .set(info);
-
-        this.$router.push({ name: "Login" });
-        this.$notify({
-          title: "Success",
-          message: "You are now registered.",
-          type: "success",
-          duration: 3000,
-        });
       }
     },
   },

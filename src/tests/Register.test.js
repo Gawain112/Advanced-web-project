@@ -36,3 +36,13 @@ test("NoEmailShouldFailTest", async () => {
     expect(wrapper.html()).toContain("The email address is badly formatted.");
   }, 3000);
 });
+
+test("registerSamePasswordComfirmationShouldFailTest", async () => {
+  await emailInput.setValue(email);
+  await passwordInput0.setValue(password);
+  await passwordInput1.setValue(password + "hehe");
+
+  await passwordInput1.trigger("blur");
+
+  expect(wrapper.html()).toContain("Passwords do not match!");
+});
