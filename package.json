@@ -14,6 +14,7 @@
     "core-js": "^3.6.5",
     "csv-parse": "^4.15.3",
     "element-plus": "^1.0.2-beta.31",
+    "email-validator": "^2.0.4",
     "firebase": "^8.2.9",
     "firebase-tools": "^9.3.0",
     "node-fetch": "^2.6.1",
