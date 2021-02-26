@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import AddData from "@/views/AddData/AddData.vue";
 import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
-import Analysis from "@/views/Analysis.vue";
 import firebaseTests from "@/firebase/firebaseTests/FirebaseTests.vue";
 import Sitemap from "@/views/Sitemap.vue";
 import Login from "@/views/account/Login.vue";
@@ -41,12 +40,6 @@ const routes = [
     name: "AddData",
     component: AddData,
     meta: { title: "AddData | Cardiomyopathy" },
-  },
-  {
-    path: "/analysis",
-    name: "Analysis",
-    component: Analysis,
-    meta: { title: "Analysis | Cardiomyopathy" },
   },
   {
     path: "/login",
