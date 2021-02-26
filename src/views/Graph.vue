@@ -1,15 +1,30 @@
 <template>
   <el-main>
-    <div id="graph-styling">
-      <div v-if="dataReady">
-        <VueApexCharts
-          type="line"
-          height="300%"
-          width="300%"
-          :options="chartOptions"
-          :series="series"
-        ></VueApexCharts>
-      </div>
+    <el-row class="mb-3"><h1>Graph visualizing experimental data</h1></el-row>
+    <div v-if="dataReady" id="graph-styling">
+      <el-row
+        ><el-col :span="24"
+          ><VueApexCharts
+            type="line"
+            width="100%"
+            :options="chartOptions"
+            :series="series"
+          ></VueApexCharts></el-col
+      ></el-row>
+    </div>
+    <el-row
+      ><p class="text-primary font-weight-bold">
+        To view more graphs like this, log in and search for a gene by its
+        approved gene symbol.
+      </p></el-row
+    >
+    <div v-if="graphOwner">
+      <el-row
+        ><p>You own this graph. Would you like to delete it?</p>
+        <el-button type="danger" @click="deleteGraph"
+          >Delete Graph</el-button
+        ></el-row
+      >
     </div>
   </el-main>
 </template>
@@ -37,6 +52,11 @@ export default {
       required: true,
       default: "",
     },
+    user: {
+      type: String,
+      required: false,
+      default: "",
+    },
   },
   setup(props) {
     const dataReady = ref(false);
@@ -46,6 +66,8 @@ export default {
     const yAxisTitle = "Loading";
     const xValues = [1, 1, 1, 1, 1, 1];
     const yValues = [4, 5, 7, 4, 2, 22, 4, 5, 6];
+
+    const graphOwner = ref(false);
 
     firebaseFireStore
       .collection("data")
@@ -58,7 +80,15 @@ export default {
       })
       .then(data => {
         loadCsvIntoGraph(data.csv);
-        chartOptions.title.text = data.gene + ": " + data.hearttype;
+        chartOptions.title.text =
+          data.gene +
+          ": " +
+          data.hearttype +
+          ". Uploaded by: " +
+          data.createdBy;
+        if (props.user == data.createdBy) {
+          graphOwner.value = true;
+        }
       });
 
     let loadCsvIntoGraph = async csv => {
@@ -134,7 +164,19 @@ export default {
       },
     ];
 
-    return { chartOptions, series, dataReady };
+    let deleteGraph = () => {
+      firebaseFireStore
+        .collection("data")
+        .doc(props.geneSymbol)
+        .collection(props.graphType)
+        .doc(props.graphId)
+        .get()
+        .then(doc => {
+          doc.ref.delete();
+        });
+    };
+
+    return { chartOptions, series, dataReady, graphOwner, deleteGraph };
   },
 };
 </script>
@@ -142,7 +184,6 @@ export default {
 <style>
 #graph-styling {
   margin: 0 auto;
-  display: flex;
   justify-content: center;
 }
 </style>
