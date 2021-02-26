@@ -42,7 +42,7 @@ test("registerSamePasswordComfirmationShouldFailTest", async () => {
   await passwordInput0.setValue(password);
   await passwordInput1.setValue(password + "hehe");
 
-  await submitButton.trigger("click");
+  await passwordInput1.trigger("blur");
 
   expect(wrapper.html()).toContain("Passwords do not match!");
 });

@@ -7,7 +7,10 @@
         </div>
       </template>
       <div class="card-body">
-        <RegisterForm size="medium" />
+        <RegisterForm
+          size="medium"
+          @register-clicked="$router.push('/Login')"
+        />
       </div>
     </el-card>
   </el-main>

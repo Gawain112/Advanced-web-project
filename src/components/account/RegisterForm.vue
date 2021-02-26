@@ -1,9 +1,20 @@
 <template>
-  <el-form lable-width="95px" class="demo-ruleForm" @submit.prevent>
-    <el-form-item label="Name" :rules="{ required: true }">
+  <el-form
+    ref="registerModel"
+    lable-width="95px"
+    class="demo-ruleForm"
+    :model="registerModel"
+    @submit.prevent
+  >
+    <el-form-item
+      label="Name"
+      prop="name"
+      :rules="[{ required: true, trigger: 'blur' }]"
+    >
       <el-input
-        v-model="name"
+        v-model="registerModel.name"
         type="text"
+
         placeholder="Input Name"
         required
         autocomplete="off"
@@ -12,7 +23,7 @@
 
     <el-form-item label="Address" prop="address">
       <el-input
-        v-model="address"
+        v-model="registerModel.address"
         type="text"
         placeholder="Input Address"
         autocomplete="off"
@@ -21,25 +32,30 @@
 
     <el-form-item label="Phone Number" prop="number">
       <el-input
-        v-model="number"
-        type="text"
+        v-model="registerModel.number"
+        type="number"
         placeholder="Input Telephone Number"
         autocomplete="off"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Username" :rules="{ required: true }">
+    <el-form-item prop="username" label="Username" :rules="{ required: true }">
       <el-input
-        v-model="username"
+        v-model="registerModel.username"
         type="text"
         placeholder="Input Username"
         autocomplete="off"
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Email" :rules="{ required: true }">
+    <el-form-item
+      prop="email"
+      label="E-Mail"
+      :rules="[{ required: true, validator: checkValidEmail, trigger: 'blur' }]"
+    >
+
       <el-input
-        v-model="email"
+        v-model="registerModel.email"
         type="email"
         placeholder="Input Email Address"
         required
@@ -47,9 +63,13 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Institutional Affilation" :rules="{ required: true }">
+    <el-form-item
+      prop="institutionalAffilation"
+      label="Institutional Affilation"
+      :rules="{ required: true }"
+    >
       <el-input
-        v-model="institutionalAffilation"
+        v-model="registerModel.institutionalAffilation"
         type="text"
         placeholder="Input Institutional Affilation"
         required
@@ -57,9 +77,9 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Password" :rules="{ required: true }">
+    <el-form-item prop="password" label="Password" :rules="{ required: true }">
       <el-input
-        v-model="password"
+        v-model="registerModel.password"
         type="password"
         placeholder="Input Password"
         required
@@ -68,21 +88,34 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item label="Confirm Password" :rules="{ required: true }">
+    <el-form-item
+      prop="confirmPassword"
+      label="Confirm Password"
+      :rules="{ required: true }"
+    >
       <el-input
-        v-model="confirmPassword"
+        v-model="registerModel.confirmPassword"
         type="password"
         placeholder="Input Password Again"
         show-password
+        @blur="checkPasswordsMatch()"
       ></el-input>
     </el-form-item>
 
-    <el-alert v-if="errorRegistration" title="Error" type="error" effect="dark">
-      {{ errorRegistration }}
+    <el-alert
+      v-if="registerModel.errorRegistration"
+      title="Error"
+      type="error"
+      effect="dark"
+    >
+      {{ registerModel.errorRegistration }}
     </el-alert>
 
     <el-form-item>
-      <el-button style="center" type="success" @click="register"
+      <el-button
+        style="center"
+        type="success"
+        @click="validateRegister('registerModel')"
         >Register
       </el-button>
     </el-form-item>
@@ -90,84 +123,84 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from "vue";
 import { firebaseAuthentication, firebaseFireStore } from "@/firebase/database";
+import validator from "email-validator";
 
 export default {
   name: "RegisterForm",
   emits: ["register-clicked"],
-
-  setup() {
-    const name = ref("");
-    const address = ref("");
-    const number = ref("");
-    const username = ref("");
-    const email = ref("");
-    const institutionalAffilation = ref("");
-    const password = ref("");
-    const confirmPassword = ref("");
-    const errorRegistration = ref("");
-
-    watch(confirmPassword, () => {
+  data() {
+    return {
+      registerModel: ref({
+        name: "",
+        address: "",
+        number: "",
+        username: "",
+        email: "",
+        institutionalAffilation: "",
+        password: "",
+        confirmPassword: "",
+        errorRegistration: "",
+      }),
+    };
+  },
+  methods: {
+    validateRegister(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.register();
+        } else {
+          return false;
+        }
+      });
+    },
+    checkPasswordsMatch() {
+      console.log(global.registerModel);
       if (
-        password.value !== "" &&
-        confirmPassword.value !== "" &&
-        password.value !== confirmPassword.value
+        this.registerModel.password !== "" &&
+        this.registerModel.confirmPassword !== "" &&
+        this.registerModel.password !== this.registerModel.confirmPassword
       ) {
-        errorRegistration.value = "Passwords do not match!";
+        this.registerModel.errorRegistration = "Passwords do not match!";
       } else {
-        errorRegistration.value = null;
+        this.registerModel.errorRegistration = null;
       }
-    });
-
-    const router = useRouter();
-
-    const register = async () => {
+    },
+    checkValidEmail(rule, value, callback) {
+      if (validator.validate(value) == true) {
+        callback();
+      } else {
+        callback(new Error("The email address is badly formatted."));
+      }
+    },
+    register() {
       const info = {
-        name: name.value,
-        address: address.value,
-        number: number.value,
-        username: username.value,
-        email: email.value,
-        institutionalAffilation: institutionalAffilation.value,
-        password: password.value,
+        name: this.registerModel.name,
+        address: this.registerModel.address,
+        number: this.registerModel.number,
+        username: this.registerModel.username,
+        email: this.registerModel.email,
+        institutionalAffilation: this.registerModel.institutionalAffilation,
       };
 
-      console.log(router);
+      const res = firebaseAuthentication
+        .createUserWithEmailAndPassword(info.email, this.registerModel.password)
+        .catch(err => {
+          this.registerModel.errorRegistration = err.message;
+        });
+      let context = this;
+      context.$emit("register-clicked");
 
-      try {
-        const res = await firebaseAuthentication.createUserWithEmailAndPassword(
-          info.email,
-          info.password,
-        );
+      if (res.user) {
+        res.user.sendEmailVerification();
 
-        await res.user.sendEmailVerification();
-
-        await firebaseFireStore
+        firebaseFireStore
           .collection("users")
           .doc(`${res.user.uid}`)
           .set(info);
-
-        router.push({ name: "Login" });
-      } catch (err) {
-        console.log(err);
-        errorRegistration.value = err.message;
       }
-    };
-
-    return {
-      name,
-      address,
-      number,
-      username,
-      email,
-      institutionalAffilation,
-      password,
-      confirmPassword,
-      register,
-      errorRegistration,
-    };
+    },
   },
 };
 </script>
