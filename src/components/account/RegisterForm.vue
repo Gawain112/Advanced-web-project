@@ -10,9 +10,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item
-    label="Address"
-    prop="address">
+    <el-form-item label="Address" prop="address">
       <el-input
         v-model="address"
         type="text"
@@ -21,9 +19,7 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item
-    label="Phone Number"
-    prop="number">
+    <el-form-item label="Phone Number" prop="number">
       <el-input
         v-model="number"
         type="text"
