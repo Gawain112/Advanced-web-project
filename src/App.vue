@@ -49,7 +49,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  height: 100%;
+  min-height: 100%;
+  position: relative;
   color: #2c3e50;
+  padding-bottom: 60px; /* footer height */
 }
 </style>
