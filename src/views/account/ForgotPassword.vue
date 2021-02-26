@@ -1,64 +1,35 @@
 <template>
-  <el-form label-position="left" label-width="6rem" :size="size">
-    <el-form-item
-      label="Email"
-      prop="email"
-      :rules="[
-        {
-          required: true,
-          message: 'Email cannot be blank',
-          trigger: 'blur',
-        },
-        {
-          min: 3,
-          message: 'Email must be 3 characters or more',
-          trigger: 'blur',
-        },
-      ]"
-    >
-      <el-input v-model="email" placeholder="Input Email Address"></el-input>
-    </el-form-item>
-
-    <el-form-item>
-      <el-button style="margin-left: -4rem;" type="primary" @click="sendEmail()"
-        >Reset Password</el-button
-      >
-    </el-form-item>
-
-    <el-alert v-if="errorMsg" title="Error" type="error" effect="dark">
-      {{ errorMsg }}
-    </el-alert>
-  </el-form>
+  <el-main>
+    <el-card class="box-card">
+      <template #header>
+        <div class="card-header border-bottom">
+          <h1 class="display-1">Password Reset</h1>
+        </div>
+      </template>
+      <div>
+        <ForgotPasswordForm size="medium" @emailSent="resetPassword" />
+      </div>
+    </el-card>
+  </el-main>
 </template>
 
 <script>
-import firebase from "firebase";
+import ForgotPasswordForm from "@/components/account/ForgotPasswordForm.vue";
 export default {
-  data() {
-    return {
-      email: "",
-      error: null,
-      emailSending: false,
-    };
-  },
+  name: "ForgotPassword",
+  components: { ForgotPasswordForm },
+  emits: ["emailSent"],
   methods: {
-    sendEmail() {
-      if (!this.email) {
-        this.error = "Please type in a valid email address.";
-        return;
-      }
-      this.error = null;
-      this.emailSending = true;
-      firebase
-        .auth()
-        .sendPasswordResetEmail(this.email)
-        .then(() => {
-          this.emailSending = false;
-        })
-        .catch(error => {
-          this.emailSending = false;
-          this.error = error.message;
-        });
+    resetPassword(email) {
+      this.$emit("emailSent", email);
+      this.$notify({
+        title: "Success",
+        message: "Email sent to, " + email + " with a password reset link.",
+        type: "success",
+        duration: 3000,
+      });
+
+      this.$router.push("/");
     },
   },
 };
