@@ -1,5 +1,5 @@
 <template>
-  <el-footer class="page-footer bg-dark mt-3 footer-bottom">
+  <el-footer class="page-footer bg-dark footer-bottom">
     <div class="footer-copyright text-light text-center py-3">
       &copy; 2021 MMU - 6G6Z1111_2021_9Z6 - Group 9. All Rights Reserved.
       <router-link
@@ -19,8 +19,8 @@ export default {
 
 <style scoped>
 .footer-bottom {
-  position: relative;
-  width: 100%;
+  position: absolute;
   bottom: 0;
+  width: 100%;
 }
 </style>
