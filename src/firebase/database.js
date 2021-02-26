@@ -10,7 +10,7 @@ const firebaseConfig = {
   storageBucket: "add-data-database.appspot.com",
   messagingSenderId: "932770559709",
   appId: "1:932770559709:web:2e3cc31ef0c4b0ca364d34", */
-  /* ??? fs
+  /* shane fs
   apiKey: "AIzaSyAhQEw9MtCtYvdx4fHHjbULW4EU23_YibA",
   authDomain: "cardiomyopathy-feed.firebaseapp.com",
   projectId: "cardiomyopathy-feed",

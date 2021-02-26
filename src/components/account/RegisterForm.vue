@@ -14,7 +14,9 @@
       <el-input
         v-model="registerModel.name"
         type="text"
-        placeholder="enter full name"
+
+        placeholder="Input Name"
+        required
         autocomplete="off"
       ></el-input>
     </el-form-item>
@@ -23,7 +25,7 @@
       <el-input
         v-model="registerModel.address"
         type="text"
-        placeholder="enter your address"
+        placeholder="Input Address"
         autocomplete="off"
       ></el-input>
     </el-form-item>
@@ -32,7 +34,7 @@
       <el-input
         v-model="registerModel.number"
         type="number"
-        placeholder="enter your telephone number"
+        placeholder="Input Telephone Number"
         autocomplete="off"
       ></el-input>
     </el-form-item>
@@ -41,7 +43,7 @@
       <el-input
         v-model="registerModel.username"
         type="text"
-        placeholder="enter a unique username"
+        placeholder="Input Username"
         autocomplete="off"
       ></el-input>
     </el-form-item>
@@ -51,10 +53,11 @@
       label="E-Mail"
       :rules="[{ required: true, validator: checkValidEmail, trigger: 'blur' }]"
     >
+
       <el-input
         v-model="registerModel.email"
         type="email"
-        placeholder="enter your E-Mail address"
+        placeholder="Input Email Address"
         required
         autocomplete="off"
       ></el-input>
@@ -68,7 +71,7 @@
       <el-input
         v-model="registerModel.institutionalAffilation"
         type="text"
-        placeholder="enter your institutional affilation"
+        placeholder="Input Institutional Affilation"
         required
         autocomplete="off"
       ></el-input>
@@ -78,7 +81,7 @@
       <el-input
         v-model="registerModel.password"
         type="password"
-        placeholder="enter password"
+        placeholder="Input Password"
         required
         autocomplete="off"
         show-password
@@ -93,7 +96,7 @@
       <el-input
         v-model="registerModel.confirmPassword"
         type="password"
-        placeholder="re-enter password"
+        placeholder="Input Password Again"
         show-password
         @blur="checkPasswordsMatch()"
       ></el-input>
