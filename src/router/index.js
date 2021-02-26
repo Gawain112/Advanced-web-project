@@ -3,7 +3,6 @@ import AddData from "@/views/AddData/AddData.vue";
 import HeartData from "@/views/HeartData/HeartData.vue";
 import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
-import Analysis from "@/views/Analysis.vue";
 import firebaseTests from "@/firebase/firebaseTests/FirebaseTests.vue";
 import Sitemap from "@/views/Sitemap.vue";
 import Login from "@/views/account/Login.vue";
@@ -57,12 +56,6 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: HeartData,
     meta: { title: "HeartData | Cardiomyopathy" },
-  },
-  {
-    path: "/analysis",
-    name: "Analysis",
-    component: Analysis,
-    meta: { title: "Analysis | Cardiomyopathy" },
   },
   {
     path: "/login",

@@ -10,11 +10,6 @@
         >
       </li>
       <li class="nav-item">
-        <router-link :to="{ name: 'Analysis' }" class="nav-link"
-          >Analysis</router-link
-        >
-      </li>
-      <li class="nav-item">
         <router-link
           :to="{
             name: 'Graph',
