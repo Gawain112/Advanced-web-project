@@ -1,13 +1,15 @@
 <template>
   <el-main>
-    <div v-if="dataReady">
-      <VueApexCharts
-        type="line"
-        height="350"
-        width="500"
-        :options="chartOptions"
-        :series="series"
-      ></VueApexCharts>
+    <div id="graph-styling">
+      <div v-if="dataReady">
+        <VueApexCharts
+          type="line"
+          height="300%"
+          width="300%"
+          :options="chartOptions"
+          :series="series"
+        ></VueApexCharts>
+      </div>
     </div>
   </el-main>
 </template>
@@ -137,4 +139,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#graph-styling {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+</style>
